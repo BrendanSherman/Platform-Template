@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="lwjgl">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Documents/slick/lib/lwjgl.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/slick/lib/slick.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/slick/lib/jogg-0.0.7.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/slick/lib/jorbis-0.0.15.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
