@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e8f974ab-d496-4f40-a61d-6a18d2f4e94e" name="Default" comment="Renamed important files, removed SimpleSlickGame, made exception generator actually refer to the right file, improved file structure. If my suspisons are correct this commit might actually break your library install (in project structure--&gt;libraries). Let me know if that happens, I might have a temporary fix.">
+    <list default="true" id="e8f974ab-d496-4f40-a61d-6a18d2f4e94e" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/images/blocks/questionMarkBlock1.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Game/MarioClone.class" afterPath="$PROJECT_DIR$/out/production/Game/MarioClone.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/MarioClone.java" afterPath="$PROJECT_DIR$/src/MarioClone.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -640,12 +641,20 @@
       <workItem from="1505619891785" duration="12000" />
       <workItem from="1505620065171" duration="2778000" />
       <workItem from="1505622931652" duration="172000" />
-      <workItem from="1505666968894" duration="1544000" />
+      <workItem from="1505666968894" duration="2195000" />
     </task>
+    <task id="LOCAL-00001" summary="tried to texture the block.">
+      <created>1505668552319</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1505668552320</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="23268000" />
+    <option name="totallyTimeSpent" value="23919000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-13" y="-13" width="2586" height="1406" extended-state="6" />
@@ -691,7 +700,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Renamed important files, removed SimpleSlickGame, made exception generator actually refer to the right file, various other small changes." />
     <MESSAGE value="Renamed important files, removed SimpleSlickGame, made exception generator actually refer to the right file, improved file structure. If my suspisons are correct this commit might actually break your library install (in project structure--&gt;libraries). Let me know if that happens, I might have a temporary fix." />
-    <option name="LAST_COMMIT_MESSAGE" value="Renamed important files, removed SimpleSlickGame, made exception generator actually refer to the right file, improved file structure. If my suspisons are correct this commit might actually break your library install (in project structure--&gt;libraries). Let me know if that happens, I might have a temporary fix." />
+    <MESSAGE value="tried to texture the block." />
+    <option name="LAST_COMMIT_MESSAGE" value="tried to texture the block." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
