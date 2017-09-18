@@ -75,9 +75,7 @@ public class MarioClone extends BasicGame
         g.fillRect(0, 1050, 1920, 30);
         //draws Mario
         mario.draw(marioX, marioY);
-        g.setColor(Color.orange); //draws a box
-        g.fillRect(500, 980, 100, 100);
-        questionBlock1.draw(500, 980);
+        questionBlock1.draw(500, 950, 100, 100);
     }
 
     public static void main(String[] args)
