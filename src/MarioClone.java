@@ -50,11 +50,9 @@ public class MarioClone extends BasicGame
         }
 
         init();
-        if(marioY >=930)
-            marioY = 930;
         boxHitBox = new Rectangle(marioX, marioY, 128, 128);
         if(boxHitBox.intersects(box)){
-            marioX -=5;
+            marioX -=2;
         }
         mario.draw(marioX, marioY);
 
