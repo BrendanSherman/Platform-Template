@@ -18,6 +18,9 @@ public class MarioClone extends BasicGame
     private Rectangle boxHitBox;
     private Music song = new Music("resources/music/song1.ogg");
     public String MarioCurrentDir = "right";
+    private int jumpStage = 0;
+    private boolean jump = false;
+    private Sound jumpSound = new Sound("resources/music/smb_jump-small.wav");
 
     public MarioClone(String gamename, int x, int y) throws SlickException {
         super(gamename);
@@ -52,10 +55,24 @@ public class MarioClone extends BasicGame
             MarioCurrentDir = "left";
         }
 
+        if (input.isKeyDown(Input.KEY_SPACE) && jumpStage == 0){
+            jumpStage++;
+            jumpSound.play();
+        }
+        if(jumpStage > 0){
+            if (jumpStage >= 1 && jumpStage < 60){
+                marioY -= 4;
+                jumpStage++;
+            }
 
-        if (input.isKeyDown(Input.KEY_UP)){
-            marioY -=2;
-
+            else if (jumpStage >= 60 && jumpStage < 120){
+                marioY += 4;
+                jumpStage++;
+            }
+            if(jumpStage == 120){
+                jumpStage = 0;
+                marioY -=4;
+            }
         }
 
         init();
@@ -68,9 +85,9 @@ public class MarioClone extends BasicGame
     }
 
     public void keyPressed(GameContainer gc, int key, char c) throws SlickException{
-
         super.keyPressed(key, c);
     }
+
     @Override
     public void render(GameContainer gc, Graphics g) throws SlickException
     {
