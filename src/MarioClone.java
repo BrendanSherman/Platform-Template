@@ -4,9 +4,12 @@ import java.util.logging.Logger;
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Rectangle;
 
+import static java.lang.Thread.sleep;
+
 public class MarioClone extends BasicGame
 {
-    public Image mario;
+    public Image marioRight;
+    public Image marioLeft;
     public Image questionBlock1;
     private Image bg;
     private int marioX;
@@ -14,6 +17,7 @@ public class MarioClone extends BasicGame
     private Rectangle box = new Rectangle(500, 980, 100, 100);
     private Rectangle boxHitBox;
     private Music song = new Music("resources/music/song1.ogg");
+    public String MarioCurrentDir = "right";
 
     public MarioClone(String gamename, int x, int y) throws SlickException {
         super(gamename);
@@ -22,7 +26,9 @@ public class MarioClone extends BasicGame
     }
 
     public void init() throws SlickException{
-        mario = new Image("resources/images/marioFacingRight.png");
+        // loads sprites (inc. Mario, the background, and blocks.)
+        marioRight = new Image("resources/images/marioFacingRight.png");
+        marioLeft = new Image("resources/images/marioFacingLeft.png");
         bg = new Image("resources/images/background1.jpg");
         questionBlock1 = new Image("resources/images/blocks/questionMarkBlock1.png");
     }
@@ -38,15 +44,18 @@ public class MarioClone extends BasicGame
         Input input = gc.getInput();
         if(input.isKeyDown(Input.KEY_RIGHT)){
             marioX += 2;
+            MarioCurrentDir = "right";
         }
 
         if(input.isKeyDown(Input.KEY_LEFT)){
             marioX -= 2;
+            MarioCurrentDir = "left";
         }
 
 
         if (input.isKeyDown(Input.KEY_UP)){
-            marioY +=20;
+            marioY -=2;
+
         }
 
         init();
@@ -54,7 +63,7 @@ public class MarioClone extends BasicGame
         if(boxHitBox.intersects(box)){
             marioX -=2;
         }
-        mario.draw(marioX, marioY);
+        marioRight.draw(marioX, marioY);
 
     }
 
@@ -72,7 +81,7 @@ public class MarioClone extends BasicGame
         g.setColor(Color.green);
         g.fillRect(0, 1050, 1920, 30);
         //draws Mario
-        mario.draw(marioX, marioY);
+        marioRight.draw(marioX, marioY);
         questionBlock1.draw(500, 950, 100, 100);
     }
 
