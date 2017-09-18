@@ -59,7 +59,7 @@ public class MarioClone extends BasicGame
         }
 
         init();
-        boxHitBox = new Rectangle(marioX, marioY, 128, 128);
+        boxHitBox = new Rectangle(marioX, marioY, 96, 128);
         if(boxHitBox.intersects(box)){
             marioX -=2;
         }
