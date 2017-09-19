@@ -2,6 +2,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.newdawn.slick.*;
+import org.newdawn.slick.geom.Line;
 import org.newdawn.slick.geom.Rectangle;
 
 import static java.lang.Thread.sleep;
@@ -15,12 +16,14 @@ public class MarioClone extends BasicGame
     private int marioX;
     private int marioY;
     private Rectangle box = new Rectangle(500, 980, 100, 100);
-    private Rectangle boxHitBox;
+    private Line MarioFootLine;
+    private Line MarioRightLine;
     private Music song = new Music("resources/music/song1.ogg");
     public String MarioCurrentDir = "right";
     private int jumpStage = 0;
     private boolean jump = false;
     private Sound jumpSound = new Sound("resources/music/smb_jump-small.wav");
+    boolean onBox = false;
 
     public MarioClone(String gamename, int x, int y) throws SlickException {
         super(gamename);
@@ -44,6 +47,10 @@ public class MarioClone extends BasicGame
 
     @Override
     public void update(GameContainer gc, int i) throws SlickException {
+        if (marioY < 930 && jumpStage == 0){ //gravity
+            marioY = 930;
+        }
+
         Input input = gc.getInput();
         if(input.isKeyDown(Input.KEY_RIGHT)){
             marioX += 2;
@@ -59,6 +66,7 @@ public class MarioClone extends BasicGame
             jumpStage++;
             jumpSound.play();
         }
+
         if(jumpStage > 0){
             if (jumpStage >= 1 && jumpStage < 60){
                 marioY -= 4;
@@ -76,11 +84,16 @@ public class MarioClone extends BasicGame
         }
 
         init();
-        boxHitBox = new Rectangle(marioX, marioY, 96, 128);
-        if(boxHitBox.intersects(box)){
+        MarioRightLine = new Line(marioX + 128, marioY, marioX + 128, marioY + 128);
+        MarioFootLine =  new Line(marioX, marioY+128, marioX+90, marioY+128);
+        if(MarioRightLine.intersects(box)){
             marioX -=2;
         }
-        marioRight.draw(marioX, marioY);
+        if (MarioFootLine.intersects(box)){
+            marioY = 830;
+            onBox = true;
+        }
+
 
     }
 
