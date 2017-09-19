@@ -48,7 +48,7 @@ public class MarioClone extends BasicGame
     @Override
     public void update(GameContainer gc, int i) throws SlickException {
         if (marioY < 930 && jumpStage == 0){ //gravity
-            marioY = 930;
+            marioY+=4;
         }
 
         Input input = gc.getInput();
