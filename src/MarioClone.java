@@ -11,10 +11,6 @@ import static java.lang.Thread.sleep;
 public class MarioClone extends BasicGame
 {
     // adds images and shit. this is garbage code, please don't look at it.
-    public Image smallMarioSheet = new Image("resources/images/smallMarioSheet.png");
-    public SpriteSheet marioSheet = new SpriteSheet(smallMarioSheet, 15, 16, 1);
-    public Image marioRight;
-    public Image marioLeft;
     public Image questionBlock1;
     private Image bg;
     private int marioX;
@@ -37,8 +33,6 @@ public class MarioClone extends BasicGame
 
     public void init() throws SlickException{
         // loads sprites (inc. Mario, the background, and blocks.)
-        marioRight = new Image("resources/images/marioFacingRight.png");
-        marioLeft = new Image("resources/images/marioFacingLeft.png");
         bg = new Image("resources/images/background1.jpg");
         questionBlock1 = new Image("resources/images/blocks/questionMarkBlock1.png");
     }
@@ -116,8 +110,14 @@ public class MarioClone extends BasicGame
         g.setColor(Color.green);
         g.fillRect(0, 1050, 1920, 30);
         //draws Mario
+        SpriteSheet marioSheet = new SpriteSheet("resources/images/smallMarioSheet.png", 120, 128, 8);
+
+        // finds Mario's current direction, if right fetches the correct sprite. Otherwise, gets the same sprite and then flips it.
         if (MarioCurrentDir.equals("right")) {
-            smallMarioSheet.getSubImage(1,1, 15, 16).draw(marioX,marioY);
+            marioSheet.getSubImage(0, 0, 120, 128).draw(marioX,marioY);
+        }
+        else if (MarioCurrentDir.equals("left")) {
+            marioSheet.getSubImage(0, 0, 120, 128).getFlippedCopy(true, false).draw(marioX, marioY);
         }
         questionBlock1.draw(500, 950, 100, 100);
     }
