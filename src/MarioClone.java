@@ -1,7 +1,6 @@
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.sun.xml.internal.bind.v2.TODO;
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Line;
 import org.newdawn.slick.geom.Rectangle;
@@ -10,9 +9,6 @@ import static java.lang.Thread.sleep;
 
 public class MarioClone extends BasicGame
 {
-    // adds images and shit. this is garbage code, please don't look at it.
-    public Image smallMarioSheet = new Image("resources/images/smallMarioSheet.png");
-    public SpriteSheet marioSheet = new SpriteSheet(smallMarioSheet, 15, 16, 1);
     public Image marioRight;
     public Image marioLeft;
     public Image questionBlock1;
@@ -116,9 +112,7 @@ public class MarioClone extends BasicGame
         g.setColor(Color.green);
         g.fillRect(0, 1050, 1920, 30);
         //draws Mario
-        if (MarioCurrentDir.equals("right")) {
-            smallMarioSheet.getSubImage(1,1, 15, 16).draw(marioX,marioY);
-        }
+        marioRight.draw(marioX, marioY);
         questionBlock1.draw(500, 950, 100, 100);
     }
 
