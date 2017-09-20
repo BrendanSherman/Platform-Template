@@ -21,7 +21,7 @@ public class MarioClone extends BasicGame
     private Music song = new Music("resources/music/song1.ogg");
     public String MarioCurrentDir = "right";
     private int jumpStage = 0;
-    private boolean jump = false;
+    private boolean upJumping = false;
     private Sound jumpSound = new Sound("resources/music/smb_jump-small.wav");
     boolean onBox = false;
 
@@ -47,7 +47,7 @@ public class MarioClone extends BasicGame
 
     @Override
     public void update(GameContainer gc, int i) throws SlickException {
-        if (marioY < 930 && jumpStage == 0){ //gravity
+        if (marioY < 930 && jumpStage == 0 && onBox == false){ //gravity
             marioY+=4;
         }
 
@@ -67,22 +67,19 @@ public class MarioClone extends BasicGame
             jumpSound.play();
         }
 
-        if(jumpStage > 0){
-            if (jumpStage >= 1 && jumpStage < 60){
+        if(jumpStage > 0) {
+            if (jumpStage >= 1 && jumpStage < 60) {
                 marioY -= 4;
                 jumpStage++;
-            }
-
-            else if (jumpStage >= 60 && jumpStage < 120){
+            } else if (jumpStage >= 60 && jumpStage < 120) {
                 marioY += 4;
                 jumpStage++;
             }
-            if(jumpStage == 120){
+            if (jumpStage == 120) {
                 jumpStage = 0;
-                marioY -=4;
+                marioY -= 4;
             }
         }
-
         init();
         MarioRightLine = new Line(marioX + 128, marioY, marioX + 128, marioY + 128);
         MarioFootLine =  new Line(marioX, marioY+128, marioX+90, marioY+128);
@@ -92,6 +89,10 @@ public class MarioClone extends BasicGame
         if (MarioFootLine.intersects(box)){
             marioY = 830;
             onBox = true;
+        }
+
+        else{
+            onBox = false;
         }
 
 
