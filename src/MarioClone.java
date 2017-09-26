@@ -29,8 +29,6 @@ public class MarioClone extends BasicGame
     public void init() throws SlickException{
         // loads sprites (inc. Mario, the background, and blocks.)
         box1 = new Box("resources/images/blocks/questionMarkBlock1.png", 500, 952);
-        marioRight = new Image("resources/images/marioFacingRight.png");
-        marioLeft = new Image("resources/images/marioFacingLeft.png");
         bg = new Image("resources/images/background1.jpg");
     }
 
