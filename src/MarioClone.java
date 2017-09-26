@@ -104,21 +104,29 @@ public class MarioClone extends BasicGame
     public void render(GameContainer gc, Graphics g) throws SlickException
     {
         init();
+
         //draws the background
         bg.draw(0,0);
+
         //draws the ground (i think)
         g.setColor(Color.green);
         g.fillRect(0, 1050, 1920, 30);
-        //draws Mario
-        SpriteSheet marioSheet = new SpriteSheet("resources/images/smallMarioSheet.png", 120, 128, 8);
+
+        //Creates Mario's spritesheet and animation set.
+        SpriteSheet smallMarioSheetMovement = new SpriteSheet("resources/images/smallMarioSheetMovement.png", 120, 128, 8);
+        Animation marioAniSet1 = new Animation(smallMarioSheetMovement, 100 );
+        marioAniSet1.draw(15, 15);
 
         // finds Mario's current direction, if right fetches the correct sprite. Otherwise, gets the same sprite and then flips it.
         if (MarioCurrentDir.equals("right")) {
-            marioSheet.getSubImage(0, 0, 120, 128).draw(marioX,marioY);
+            smallMarioSheetMovement.getSubImage(0, 0, 120, 128).draw(marioX,marioY);
+            marioAniSet1.draw(marioX, marioY);
         }
         else if (MarioCurrentDir.equals("left")) {
-            marioSheet.getSubImage(0, 0, 120, 128).getFlippedCopy(true, false).draw(marioX, marioY);
+            smallMarioSheetMovement.getSubImage(0, 0, 120, 128).getFlippedCopy(true, false).draw(marioX, marioY);
         }
+
+        // Draws a question mark block.
         questionBlock1.draw(500, 950, 100, 100);
     }
 
