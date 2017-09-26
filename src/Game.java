@@ -2,12 +2,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.newdawn.slick.*;
-import org.newdawn.slick.geom.Line;
 import org.newdawn.slick.geom.Rectangle;
 
 import static java.lang.Thread.sleep;
 
-public class MarioClone extends BasicGame
+public class Game extends BasicGame
 {
     private Box box1;
     private Image bg;
@@ -20,7 +19,7 @@ public class MarioClone extends BasicGame
     private boolean upJumping = false;
     private Sound jumpSound = new Sound("resources/music/smb_jump-small.wav");
 
-    public MarioClone(String gamename, int x, int y) throws SlickException {
+    public Game(String gamename, int x, int y) throws SlickException {
         super(gamename);
         this.marioX = x;
         this.marioY = y;
@@ -129,7 +128,7 @@ public class MarioClone extends BasicGame
         try // Creates a new AppContainer and sets resolution, update interval, fullscreen status, and target framerate.
         {
             AppGameContainer appgc;
-            appgc = new AppGameContainer(new MarioClone("Game", 30, 930));
+            appgc = new AppGameContainer(new Game("Game", 30, 930));
             appgc.setDisplayMode(1920, 1080, false);
             appgc.setMinimumLogicUpdateInterval(5);
             appgc.setMaximumLogicUpdateInterval(5);
@@ -139,7 +138,7 @@ public class MarioClone extends BasicGame
         }
         catch (SlickException ex) //Generates a logger if AppContainer fails to start
         {
-            Logger.getLogger(MarioClone.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
