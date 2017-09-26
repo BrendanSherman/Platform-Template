@@ -1,7 +1,6 @@
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.sun.xml.internal.bind.v2.TODO;
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Line;
 import org.newdawn.slick.geom.Rectangle;
@@ -10,20 +9,16 @@ import static java.lang.Thread.sleep;
 
 public class MarioClone extends BasicGame
 {
-    // adds images and shit. this is garbage code, please don't look at it.
-    public Image questionBlock1;
+    private Box box1;
     private Image bg;
     private int marioX;
     private int marioY;
-    private Rectangle box = new Rectangle(500, 980, 100, 100);
-    private Line MarioFootLine;
-    private Line MarioRightLine;
+    private Rectangle marioRectangle = new Rectangle(marioX, marioY, 96, 128);
     private Music song = new Music("resources/music/song1.ogg");
     public String MarioCurrentDir = "right";
     private int jumpStage = 0;
     private boolean upJumping = false;
     private Sound jumpSound = new Sound("resources/music/smb_jump-small.wav");
-    boolean onBox = false;
 
     public MarioClone(String gamename, int x, int y) throws SlickException {
         super(gamename);
@@ -33,8 +28,10 @@ public class MarioClone extends BasicGame
 
     public void init() throws SlickException{
         // loads sprites (inc. Mario, the background, and blocks.)
+        box1 = new Box("resources/images/blocks/questionMarkBlock1.png", 500, 952);
+        marioRight = new Image("resources/images/marioFacingRight.png");
+        marioLeft = new Image("resources/images/marioFacingLeft.png");
         bg = new Image("resources/images/background1.jpg");
-        questionBlock1 = new Image("resources/images/blocks/questionMarkBlock1.png");
     }
 
     @Override
@@ -45,9 +42,21 @@ public class MarioClone extends BasicGame
 
     @Override
     public void update(GameContainer gc, int i) throws SlickException {
-        if (marioY < 930 && jumpStage == 0 && onBox == false){ //gravity
+        marioRectangle.setX(marioX);
+        marioRectangle.setY(marioY);
+
+        if (marioY < 930 && jumpStage == 0){ //gravity
             marioY+=4;
         }
+
+        if(box1.leftCollision(marioRectangle)){
+            marioX-=5;
+        }
+
+        if(box1.topCollision(marioRectangle)){
+            marioY = box1.getY() - 100;
+        }
+
 
         Input input = gc.getInput();
         if(input.isKeyDown(Input.KEY_RIGHT)){
@@ -79,20 +88,6 @@ public class MarioClone extends BasicGame
             }
         }
         init();
-        MarioRightLine = new Line(marioX + 128, marioY, marioX + 128, marioY + 128);
-        MarioFootLine =  new Line(marioX, marioY+128, marioX+90, marioY+128);
-        if(MarioRightLine.intersects(box)){
-            marioX -=2;
-        }
-        if (MarioFootLine.intersects(box)){
-            marioY = 830;
-            onBox = true;
-        }
-
-        else{
-            onBox = false;
-        }
-
 
     }
 
@@ -125,9 +120,10 @@ public class MarioClone extends BasicGame
         else if (MarioCurrentDir.equals("left")) {
             smallMarioSheetMovement.getSubImage(0, 0, 120, 128).getFlippedCopy(true, false).draw(marioX, marioY);
         }
-
+        box1.draw();
+        box1.drawLines();
         // Draws a question mark block.
-        questionBlock1.draw(500, 950, 100, 100);
+
     }
 
     public static void main(String[] args)
