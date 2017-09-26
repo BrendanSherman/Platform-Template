@@ -10,8 +10,6 @@ import static java.lang.Thread.sleep;
 public class MarioClone extends BasicGame
 {
     private Box box1;
-    public Image marioRight;
-    public Image marioLeft;
     private Image bg;
     private int marioX;
     private int marioY;
@@ -34,8 +32,6 @@ public class MarioClone extends BasicGame
         marioRight = new Image("resources/images/marioFacingRight.png");
         marioLeft = new Image("resources/images/marioFacingLeft.png");
         bg = new Image("resources/images/background1.jpg");
-        song.play();
-        song.loop();
     }
 
     @Override
@@ -103,15 +99,30 @@ public class MarioClone extends BasicGame
     public void render(GameContainer gc, Graphics g) throws SlickException
     {
         init();
+
         //draws the background
         bg.draw(0,0);
+
         //draws the ground (i think)
         g.setColor(Color.green);
         g.fillRect(0, 1050, 1920, 30);
-        //draws Mario
+
+        //Creates Mario's spritesheet and animation set.
+        SpriteSheet smallMarioSheetMovement = new SpriteSheet("resources/images/smallMarioSheetMovement.png", 120, 128, 8);
+        Animation marioAniSet1 = new Animation(smallMarioSheetMovement, 100 );
+        marioAniSet1.draw(15, 15);
+
+        // finds Mario's current direction, if right fetches the correct sprite. Otherwise, gets the same sprite and then flips it.
+        if (MarioCurrentDir.equals("right")) {
+            smallMarioSheetMovement.getSubImage(0, 0, 120, 128).draw(marioX,marioY);
+            marioAniSet1.draw(marioX, marioY);
+        }
+        else if (MarioCurrentDir.equals("left")) {
+            smallMarioSheetMovement.getSubImage(0, 0, 120, 128).getFlippedCopy(true, false).draw(marioX, marioY);
+        }
         box1.draw();
         box1.drawLines();
-        marioRight.draw(marioX, marioY);
+        // Draws a question mark block.
 
     }
 
