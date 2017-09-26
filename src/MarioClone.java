@@ -34,6 +34,8 @@ public class MarioClone extends BasicGame
         marioRight = new Image("resources/images/marioFacingRight.png");
         marioLeft = new Image("resources/images/marioFacingLeft.png");
         bg = new Image("resources/images/background1.jpg");
+        song.play();
+        song.loop();
     }
 
     @Override
@@ -52,7 +54,11 @@ public class MarioClone extends BasicGame
         }
 
         if(box1.leftCollision(marioRectangle)){
-            marioX--;
+            marioX-=5;
+        }
+
+        if(box1.topCollision(marioRectangle)){
+            marioY = box1.getY() - 100;
         }
 
 
@@ -103,6 +109,8 @@ public class MarioClone extends BasicGame
         g.setColor(Color.green);
         g.fillRect(0, 1050, 1920, 30);
         //draws Mario
+        box1.draw();
+        box1.drawLines();
         marioRight.draw(marioX, marioY);
 
     }

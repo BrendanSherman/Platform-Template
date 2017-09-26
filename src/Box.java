@@ -48,4 +48,24 @@ public class Box {
     public boolean rightCollision(Rectangle marioBox){ //checks for right collision
         return rightLine.intersects(marioBox);
     }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public float getTopLineY(){
+        return topLine.getY1();
+    }
 }
