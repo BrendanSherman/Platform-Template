@@ -64,8 +64,5 @@ public class Box {
     public void setY(int y) {
         this.y = y;
     }
-
-    public float getTopLineY(){
-        return topLine.getY1();
-    }
+    
 }
