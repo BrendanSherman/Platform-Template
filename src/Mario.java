@@ -1,37 +1,42 @@
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
+import org.newdawn.slick.geom.Line;
 import org.newdawn.slick.geom.Rectangle;
 
 public class Mario {
     private int marioX;
     private int marioY;
-    private String url;
     private Rectangle marioFeetRectangle;
     private Rectangle marioRightRectangle;
-    private SpriteSheet smallMarioSheet = new SpriteSheet("resources/images/smallMarioSheet.png", 120, 128, 8);
+    private Image marioRight;
+    private Image marioLeft;
+    public String marioDir;
 
-    public Mario(int x, int y, String url) throws SlickException{
+    public Mario(int x, int y, Image marioRight, Image marioLeft) throws SlickException{
+        this.marioRight = marioRight;
+        this.marioLeft = marioLeft;
         this.marioX = x;
         this.marioY = y;
-        this.url = url;
-
+        marioDir = "right";
     }
 
     public void Draw(String marioDir){
         if (marioDir.equals("right")){
-            smallMarioSheet.getSubImage(0, 0, 128, 128).draw(marioX, marioY);
+            marioRight.draw(marioX, marioY);
         }
 
         else if(marioDir.equals("left")){
-            smallMarioSheet.getSubImage(0, 0, 128, 128).getFlippedCopy(true, false).draw(marioX, marioY);
+            marioLeft.draw(marioX, marioY);
         }
 
         marioFeetRectangle = new Rectangle(marioX + 16, marioY + 118, 196, 10);
         marioRightRectangle = new Rectangle(marioX + 75, marioY + 32, 13, 128);
     }
 
-    public boolean checkRightCollision(Rectangle otherThing){
-        if(marioRightRectangle.intersects(otherThing)){
+    public boolean checkRightCollision(Line otherThing){
+        Draw(marioDir);
+        if(otherThing.intersects(marioRightRectangle)){
             return true;
         }
         else{
@@ -39,8 +44,9 @@ public class Mario {
         }
     }
 
-    public boolean checkBottomCollision(Rectangle otherThing){
-        if(marioFeetRectangle.intersects(otherThing)){
+    public boolean checkBottomCollision(Line otherThing){
+        Draw(marioDir);
+        if(otherThing.intersects(marioFeetRectangle)){
             return true;
         }
         else{
