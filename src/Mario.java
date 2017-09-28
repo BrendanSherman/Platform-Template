@@ -1,6 +1,5 @@
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Line;
 import org.newdawn.slick.geom.Rectangle;
 
@@ -13,7 +12,7 @@ public class Mario {
     private Image marioLeft;
     public String marioDir;
 
-    public Mario(int x, int y, Image marioRight, Image marioLeft) throws SlickException{
+    public Mario(int x, int y, Image marioRight, Image marioLeft) throws SlickException{ //sets variables
         this.marioRight = marioRight;
         this.marioLeft = marioLeft;
         this.marioX = x;
@@ -21,7 +20,7 @@ public class Mario {
         marioDir = "right";
     }
 
-    public void Draw(String marioDir){
+    public void Draw(String marioDir){ //draws mario on screen depending on position
         if (marioDir.equals("right")){
             marioRight.draw(marioX, marioY);
         }
@@ -30,11 +29,11 @@ public class Mario {
             marioLeft.draw(marioX, marioY);
         }
 
-        marioFeetRectangle = new Rectangle(marioX + 16, marioY + 118, 196, 10);
-        marioRightRectangle = new Rectangle(marioX + 75, marioY + 32, 13, 128);
+        marioFeetRectangle = new Rectangle(marioX + 16, marioY + 118, 196, 10); //sets bottom hitbox
+        marioRightRectangle = new Rectangle(marioX + 75, marioY + 32, 13, 128); //sets right hitbox
     }
 
-    public boolean checkRightCollision(Line otherThing){
+    public boolean checkRightCollision(Line otherThing){ //checks for a right collision
         Draw(marioDir);
         if(otherThing.intersects(marioRightRectangle)){
             return true;
@@ -44,7 +43,7 @@ public class Mario {
         }
     }
 
-    public boolean checkBottomCollision(Line otherThing){
+    public boolean checkBottomCollision(Line otherThing){ //checks for a bottom collision
         Draw(marioDir);
         if(otherThing.intersects(marioFeetRectangle)){
             return true;
@@ -53,6 +52,8 @@ public class Mario {
             return false;
         }
     }
+
+    //getters and setters for X and Y
 
     public int getMarioX() {
         return marioX;
