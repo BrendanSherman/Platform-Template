@@ -18,11 +18,23 @@ public class Game extends BasicGame
     private int jumpStage = 0;
     private boolean upJumping = false;
     private Sound jumpSound = new Sound("resources/music/smb_jump-small.wav");
+    private Animation a;
 
     public Game(String gamename, int x, int y) throws SlickException {
         super(gamename);
         this.marioX = x;
         this.marioY = y;
+    }
+
+    public Animation getAnimation (Image i, int SpritesX, int SpritesY, int spriteWidth, int SpriteHeight, int frames, int duration, int SpriteSpacing) {
+        Animation a = new Animation(false);
+
+        for(int y = 0; y < SpritesY; y++) {
+            for (int x = 0; x < SpritesX; x++) {
+                a.addFrame(i.getSubImage(x * spriteWidth + x * SpriteSpacing, y *SpriteHeight, spriteWidth, SpriteHeight), duration);
+            }
+        }
+        return a;
     }
 
     public void init() throws SlickException{
@@ -38,9 +50,11 @@ public class Game extends BasicGame
     }
 
     @Override
-    public void update(GameContainer gc, int i) throws SlickException {
+    public void update(GameContainer gc, int delta) throws SlickException {
         marioRectangle.setX(marioX);
         marioRectangle.setY(marioY);
+
+        a.update(delta);
 
         if (marioY < 930 && jumpStage == 0){ //gravity
             marioY+=4;
@@ -106,13 +120,16 @@ public class Game extends BasicGame
 
         //Creates Mario's spritesheet and animation set.
         SpriteSheet smallMarioSheetMovement = new SpriteSheet("resources/images/smallMarioSheetMovement.png", 120, 128, 8);
-        Animation marioAniSet1 = new Animation(smallMarioSheetMovement, 100 );
-        marioAniSet1.draw(15, 15);
+        SpriteSheet smallMarioSheetMovement2 = new SpriteSheet("resources/images/smallMarioSheetMovement2.png", 120, 128, 8);
+
+        // animations. dont touch this stuff.
+        Animation marioRightAni = getAnimation(smallMarioSheetMovement2, 3, 1, 128, 128, 3, 10, 8);
 
         // finds Mario's current direction, if right fetches the correct sprite. Otherwise, gets the same sprite and then flips it.
         if (MarioCurrentDir.equals("right")) {
             smallMarioSheetMovement.getSubImage(0, 0, 120, 128).draw(marioX,marioY);
-            marioAniSet1.draw(marioX, marioY);
+            marioRightAni.draw(marioX, marioY);
+
         }
         else if (MarioCurrentDir.equals("left")) {
             smallMarioSheetMovement.getSubImage(0, 0, 120, 128).getFlippedCopy(true, false).draw(marioX, marioY);
