@@ -15,8 +15,8 @@ public class Game extends BasicGame
     private Image bg;
     private Music song = new Music("resources/music/song1.ogg");
     private int jumpStage = 0;
-    private boolean upJumping = false;
     private Sound jumpSound = new Sound("resources/music/smb_jump-small.wav");
+    private Image e;
 
     public Game(String gamename, int x, int y) throws SlickException {
         super(gamename);
@@ -27,8 +27,8 @@ public class Game extends BasicGame
         box1 = new Box("resources/images/blocks/questionMarkBlock1.png", 500, 952);
         bg = new Image("resources/images/background1.jpg");
         marioLeft = new Image("resources/images/marioFacingLeft.png");
-        marioRight = new Image("resources/images/marioFacingLeft.png");
-        mario = new Mario(300, 300, marioLeft, marioRight);
+        marioRight = new Image("resources/images/marioFacingRight.png");
+        mario = new Mario(80, 930, marioRight, marioLeft);
     }
 
     @Override
@@ -39,7 +39,6 @@ public class Game extends BasicGame
 
     @Override
     public void update(GameContainer gc, int i) throws SlickException {
-        mario.Draw(mario.marioDir);
         if (mario.getMarioY() < 930 && jumpStage == 0){ //gravity
             mario.setMarioY(mario.getMarioY() + 4);
         }
@@ -56,12 +55,15 @@ public class Game extends BasicGame
         Input input = gc.getInput();
         if(input.isKeyDown(Input.KEY_RIGHT)){
             mario.setMarioX(mario.getMarioX() + 2);
+            System.out.println(mario.getMarioX());
             mario.marioDir = "right";
+            mario.Draw(mario.marioDir);
         }
 
         if(input.isKeyDown(Input.KEY_LEFT)){
             mario.setMarioX(mario.getMarioX() - 2);
             mario.marioDir = "left";
+            mario.Draw(mario.marioDir);
         }
 
         if (input.isKeyDown(Input.KEY_SPACE) && jumpStage == 0){
@@ -72,17 +74,21 @@ public class Game extends BasicGame
         if(jumpStage > 0) {
             if (jumpStage >= 1 && jumpStage < 60) {
                 mario.setMarioY(mario.getMarioY() - 4);
+                mario.Draw(mario.marioDir);
                 jumpStage++;
             } else if (jumpStage >= 60 && jumpStage < 120) {
                 mario.setMarioY(mario.getMarioY() + 4);
+                mario.Draw(mario.marioDir);
                 jumpStage++;
             }
             if (jumpStage == 120) {
                 jumpStage = 0;
                 mario.setMarioY(mario.getMarioY() - 4);
+                mario.Draw(mario.marioDir);
             }
         }
-        init();
+
+
 
     }
 
@@ -94,17 +100,14 @@ public class Game extends BasicGame
     public void render(GameContainer gc, Graphics g) throws SlickException
     {
         init();
+
         //draws the background
         bg.draw(0,0);
+        mario.Draw(mario.marioDir);
 
         //draws the ground (i think)
         g.setColor(Color.green);
         g.fillRect(0, 1050, 1920, 30);
-
-        //Creates Mario's spritesheet and animation set.
-        SpriteSheet smallMarioSheetMovement = new SpriteSheet("resources/images/smallMarioSheetMovement.png", 120, 128, 8);
-        Animation marioAniSet1 = new Animation(smallMarioSheetMovement, 100 );
-        marioAniSet1.draw(15, 15);
 
 
         box1.draw();
