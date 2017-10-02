@@ -35,20 +35,7 @@ public class Box {
         bottomLine = new Line(x, y+128, x+128, y+128);
     }
 
-
-
-    public boolean leftCollision(Rectangle marioBox){ //checks for left collision
-        return leftLine.intersects(marioBox);
-    }
-
-    public boolean topCollision(Rectangle marioBox){ //checks for top collision
-        return topLine.intersects(marioBox);
-    }
-
-    public boolean rightCollision(Rectangle marioBox){ //checks for right collision
-        return rightLine.intersects(marioBox);
-    }
-
+    
     public int getX() {
         return x;
     }

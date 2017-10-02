@@ -27,6 +27,7 @@ public class Game extends BasicGame
         song.play();
         song.loop();
         box1 = new Box("resources/images/blocks/questionMarkBlock1.png", 500, 952);
+        box1.drawLines();
         bg = new Image("resources/images/background1.jpg");
         marioLeft = new Image("resources/images/marioFacingLeft.png");
         marioRight = new Image("resources/images/marioFacingRight.png");
@@ -44,7 +45,7 @@ public class Game extends BasicGame
         }
 
         if(mario.checkBottomCollision(box1.topLine)){
-            mario.setMarioY(box1.getY() - 150);
+            mario.setMarioY(box1.getY() - 130);
         }
 
 
@@ -99,14 +100,13 @@ public class Game extends BasicGame
         bg.draw(0,0);
         mario.Draw(mario.marioDir);
 
-        //draws the ground (i think)
+        //draws the ground
         g.setColor(Color.green);
         g.fillRect(0, 1050, 1920, 30);
 
 
-        box1.draw();
-        box1.drawLines();
         // Draws a question mark block.
+        box1.draw();
 
     }
 
