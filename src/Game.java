@@ -22,19 +22,15 @@ public class Game extends BasicGame
         super(gamename);
     }
 
-    public void init() throws SlickException{
-        // loads sprites (inc. Mario, the background, and blocks.)
+    @Override
+    public void init(GameContainer gc) throws SlickException {
+        song.play();
+        song.loop();
         box1 = new Box("resources/images/blocks/questionMarkBlock1.png", 500, 952);
         bg = new Image("resources/images/background1.jpg");
         marioLeft = new Image("resources/images/marioFacingLeft.png");
         marioRight = new Image("resources/images/marioFacingRight.png");
         mario = new Mario(80, 930, marioRight, marioLeft);
-    }
-
-    @Override
-    public void init(GameContainer gc) throws SlickException {
-        song.play();
-        song.loop();
     }
 
     @Override
@@ -99,8 +95,6 @@ public class Game extends BasicGame
     @Override
     public void render(GameContainer gc, Graphics g) throws SlickException
     {
-        init();
-
         //draws the background
         bg.draw(0,0);
         mario.Draw(mario.marioDir);
@@ -116,12 +110,13 @@ public class Game extends BasicGame
 
     }
 
-    public static void main(String[] args)
+    public static void main(String[] args) throws SlickException
     {
+        Game g = new Game("Game", 30, 930);
         try // Creates a new AppContainer and sets resolution, update interval, fullscreen status, and target framerate.
         {
             AppGameContainer appgc;
-            appgc = new AppGameContainer(new Game("Game", 30, 930));
+            appgc = new AppGameContainer(g);
             appgc.setDisplayMode(1920, 1080, false);
             appgc.setMinimumLogicUpdateInterval(5);
             appgc.setMaximumLogicUpdateInterval(5);
