@@ -18,16 +18,7 @@ public class Game extends BasicGame
     private Camera cam = new Camera();
     int groundLevel = 922;
 
-    public Animation getAnimation (Image i, int SpritesX, int SpritesY, int spriteWidth, int SpriteHeight, int frames, int duration, int SpriteSpacing) {
-        Animation a = new Animation(false);
 
-        for(int y = 0; y < SpritesY; y++) {
-            for (int x = 0; x < SpritesX; x++) {
-                a.addFrame(i.getSubImage(x * spriteWidth + x * SpriteSpacing, y *SpriteHeight, spriteWidth, SpriteHeight), duration);
-            }
-        }
-        return a;
-    }
     public Game(String gamename, int x, int y) throws SlickException {
         super(gamename);
     }
@@ -130,6 +121,17 @@ public class Game extends BasicGame
         // Draws a question mark block.
         box1.draw();
 
+    }
+
+    public Animation getAnimation (Image i, int SpritesX, int SpritesY, int spriteWidth, int SpriteHeight, int frames, int duration, int SpriteSpacing) {
+        Animation a = new Animation(false);
+
+        for(int y = 0; y < SpritesY; y++) {
+            for (int x = 0; x < SpritesX; x++) {
+                a.addFrame(i.getSubImage(x * spriteWidth + x * SpriteSpacing, y *SpriteHeight, spriteWidth, SpriteHeight), duration);
+            }
+        }
+        return a;
     }
 
     public static void main(String[] args) throws SlickException
