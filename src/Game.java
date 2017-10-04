@@ -4,8 +4,6 @@ import java.util.logging.Logger;
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Rectangle;
 
-import static java.lang.Thread.sleep;
-
 public class Game extends BasicGame
 {
     private Image marioRight;
@@ -17,6 +15,7 @@ public class Game extends BasicGame
     private int jumpStage = 0;
     private Sound jumpSound = new Sound("resources/music/smb_jump-small.wav");
     private Image e;
+    private Camera cam = new Camera();
 
     public Game(String gamename, int x, int y) throws SlickException {
         super(gamename);
@@ -52,7 +51,6 @@ public class Game extends BasicGame
         Input input = gc.getInput();
         if(input.isKeyDown(Input.KEY_RIGHT)){
             mario.setMarioX(mario.getMarioX() + 2);
-            System.out.println(mario.getMarioX());
             mario.marioDir = "right";
             mario.Draw(mario.marioDir);
         }
@@ -67,7 +65,7 @@ public class Game extends BasicGame
             jumpStage++;
             jumpSound.play();
         }
-
+        //update jump animation
         if(jumpStage > 0) {
             if (jumpStage >= 1 && jumpStage < 60) {
                 mario.setMarioY(mario.getMarioY() - 4);
@@ -85,7 +83,19 @@ public class Game extends BasicGame
             }
         }
 
+        //update camera x and y
+        cam.camX = mario.getMarioX() - cam.VIEWPORT_WIDTH / 2;
+        cam.camY = mario.getMarioY() - cam.VIEWPORT_HEIGHT / 2;
 
+        //Stop the camera from going off the map
+        if (cam.camX > cam.offsetMaxX)
+            cam.camX = cam.offsetMaxX;
+        else if (cam.camX < cam.offsetMinX)
+            cam.camX = cam.offsetMinX;
+        if (cam.camY > cam.offsetMaxY)
+            cam.camY = cam.offsetMaxY;
+        else if (cam.camY < cam.offsetMinY)
+            cam.camY = cam.offsetMinY;
 
     }
 
@@ -96,6 +106,7 @@ public class Game extends BasicGame
     @Override
     public void render(GameContainer gc, Graphics g) throws SlickException
     {
+        g.translate(-cam.camX, -cam.camY);
         //draws the background
         bg.draw(0,0);
         mario.Draw(mario.marioDir);
