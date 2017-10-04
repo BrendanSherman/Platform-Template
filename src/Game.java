@@ -114,7 +114,10 @@ public class Game extends BasicGame
     {
         g.translate(-cam.camX, -cam.camY);
         //draws the background
-        bg.draw(0,0);
+        for(int i = 0; i <= 10000; i+=1920){
+            bg.draw(i, 0);
+        }
+
         mario.Draw(mario.marioDir);
 
         //draws the ground
