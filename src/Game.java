@@ -32,7 +32,7 @@ public class Game extends BasicGame
         bg = new Image("resources/images/background1.jpg");
         marioLeft = new Image("resources/images/marioFacingLeft.png");
         marioRight = new Image("resources/images/marioFacingRight.png");
-        mario = new Mario(80, groundLevel, marioRight, marioLeft);
+        mario = new Mario(80, groundLevel);
     }
 
     @Override
@@ -47,6 +47,10 @@ public class Game extends BasicGame
 
         if(mario.checkBottomCollision(box1.topLine)){
             mario.setMarioY(box1.getY() - 130);
+        }
+
+        if(mario.checkLeftCollision(box1.rightLine)){
+            mario.setMarioX(mario.getMarioX() + 5);
         }
 
 
@@ -115,7 +119,7 @@ public class Game extends BasicGame
 
         //draws the ground
         g.setColor(Color.green);
-        g.fillRect(0, 1050, 1920, 30);
+        g.fillRect(0, 1050, 10000, 30);
 
 
         // Draws a question mark block.

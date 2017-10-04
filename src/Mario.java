@@ -9,13 +9,14 @@ public class Mario {
     private int marioY;
     private Rectangle marioFeetRectangle;
     private Rectangle marioRightRectangle;
+    private Rectangle marioLeftRectangle;
     private Image marioRight;
     private Image marioLeft;
     public String marioDir;
     SpriteSheet smallMarioSheetMovement = new SpriteSheet("resources/images/smallMarioSheetMovement.png", 120, 128, 8);
     SpriteSheet smallMarioSheetMovement2 = new SpriteSheet("resources/images/smallMarioSheetMovement2.png", 120, 128, 8);
 
-    public Mario(int x, int y, Image marioRight, Image marioLeft) throws SlickException{ //sets variables
+    public Mario(int x, int y) throws SlickException{ //sets variables
         this.marioRight = marioRight;
         this.marioLeft = marioLeft;
         this.marioX = x;
@@ -32,8 +33,9 @@ public class Mario {
             smallMarioSheetMovement.getSubImage(0, 0).getFlippedCopy(true, false).draw(marioX, marioY);
         }
 
-        marioFeetRectangle = new Rectangle(marioX + 16, marioY + 118, 196, 10); //sets bottom hitbox
+        marioFeetRectangle = new Rectangle(marioX, marioY + 118, 128, 10); //sets bottom hitbox
         marioRightRectangle = new Rectangle(marioX + 75, marioY + 32, 13, 128); //sets right hitbox
+        marioLeftRectangle = new Rectangle(marioX + 32, marioY + 32, 16, 128);
     }
 
     public boolean checkRightCollision(Line otherThing){ //checks for a right collision
@@ -54,6 +56,15 @@ public class Mario {
         else{
             return false;
         }
+    }
+
+    public boolean checkLeftCollision(Line otherThing){ //checks for Left collision
+        Draw(marioDir);
+        if(otherThing.intersects(marioLeftRectangle)){
+            return true;
+        }
+        else
+            return false;
     }
 
     //getters and setters for X and Y
