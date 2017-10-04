@@ -1,5 +1,6 @@
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Line;
 import org.newdawn.slick.geom.Rectangle;
 
@@ -11,6 +12,8 @@ public class Mario {
     private Image marioRight;
     private Image marioLeft;
     public String marioDir;
+    SpriteSheet smallMarioSheetMovement = new SpriteSheet("resources/images/smallMarioSheetMovement.png", 120, 128, 8);
+    SpriteSheet smallMarioSheetMovement2 = new SpriteSheet("resources/images/smallMarioSheetMovement2.png", 120, 128, 8);
 
     public Mario(int x, int y, Image marioRight, Image marioLeft) throws SlickException{ //sets variables
         this.marioRight = marioRight;
@@ -22,11 +25,11 @@ public class Mario {
 
     public void Draw(String marioDir){ //draws mario on screen depending on position
         if (marioDir.equals("right")){
-            marioRight.draw(marioX, marioY);
+            smallMarioSheetMovement.getSubImage(0, 0).draw(marioX, marioY);
         }
 
         else if(marioDir.equals("left")){
-            marioLeft.draw(marioX, marioY);
+            smallMarioSheetMovement.getSubImage(0, 0).getFlippedCopy(true, false).draw(marioX, marioY);
         }
 
         marioFeetRectangle = new Rectangle(marioX + 16, marioY + 118, 196, 10); //sets bottom hitbox
