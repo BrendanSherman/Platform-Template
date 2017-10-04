@@ -29,7 +29,7 @@ public class Game extends BasicGame
         song.loop();
         box1 = new Box("resources/images/blocks/questionMarkBlock1.png", 500, 952);
         box1.drawLines();
-        bg = new Image("resources/images/background1.jpg");
+        bg = new Image("resources/images/background1.png");
         marioLeft = new Image("resources/images/marioFacingLeft.png");
         marioRight = new Image("resources/images/marioFacingRight.png");
         mario = new Mario(80, groundLevel);
@@ -114,7 +114,7 @@ public class Game extends BasicGame
     {
         g.translate(-cam.camX, -cam.camY);
         //draws the background
-        for(int i = 0; i <= 10000; i+=1920){
+        for(int i = 0; i <= 10000; i+=2184){
             bg.draw(i, 0);
         }
 
