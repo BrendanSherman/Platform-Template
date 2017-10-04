@@ -16,7 +16,18 @@ public class Game extends BasicGame
     private Sound jumpSound = new Sound("resources/music/smb_jump-small.wav");
     private Image e;
     private Camera cam = new Camera();
+    int groundLevel = 922;
 
+    public Animation getAnimation (Image i, int SpritesX, int SpritesY, int spriteWidth, int SpriteHeight, int frames, int duration, int SpriteSpacing) {
+        Animation a = new Animation(false);
+
+        for(int y = 0; y < SpritesY; y++) {
+            for (int x = 0; x < SpritesX; x++) {
+                a.addFrame(i.getSubImage(x * spriteWidth + x * SpriteSpacing, y *SpriteHeight, spriteWidth, SpriteHeight), duration);
+            }
+        }
+        return a;
+    }
     public Game(String gamename, int x, int y) throws SlickException {
         super(gamename);
     }
@@ -30,12 +41,12 @@ public class Game extends BasicGame
         bg = new Image("resources/images/background1.jpg");
         marioLeft = new Image("resources/images/marioFacingLeft.png");
         marioRight = new Image("resources/images/marioFacingRight.png");
-        mario = new Mario(80, 930, marioRight, marioLeft);
+        mario = new Mario(80, groundLevel, marioRight, marioLeft);
     }
 
     @Override
     public void update(GameContainer gc, int i) throws SlickException {
-        if (mario.getMarioY() < 930 && jumpStage == 0){ //gravity
+        if (mario.getMarioY() < groundLevel && jumpStage == 0){ //gravity
             mario.setMarioY(mario.getMarioY() + 4);
         }
 
