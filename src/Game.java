@@ -53,7 +53,6 @@ public class Game extends BasicGame
             mario.setMarioX(mario.getMarioX() + 5);
         }
 
-
         Input input = gc.getInput();
         if(input.isKeyDown(Input.KEY_RIGHT)){
             mario.setMarioX(mario.getMarioX() + 2);
