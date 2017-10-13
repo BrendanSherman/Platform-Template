@@ -147,6 +147,7 @@ public class Game extends BasicGame
         Game g = new Game("Game", 30, 930);
         try // Creates a new AppContainer and sets resolution, update interval, fullscreen status, and target framerate.
         {
+            // iniitialize game
             AppGameContainer appgc;
             appgc = new AppGameContainer(g);
             appgc.setDisplayMode(1920, 1080, false);
