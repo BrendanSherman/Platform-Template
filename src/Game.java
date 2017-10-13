@@ -110,10 +110,6 @@ public class Game extends BasicGame
 
     }
 
-    public void keyPressed(GameContainer gc, int key, char c) throws SlickException{
-        super.keyPressed(key, c);
-    }
-
     @Override
     public void render(GameContainer gc, Graphics g) throws SlickException
     {
