@@ -9,6 +9,7 @@ public class Game extends BasicGame
     // pull request 1
     private Image marioRight;
     private Image marioLeft;
+    private Image uselessImage;
     private Box box1;
     private Mario mario;
     private Image bg;
