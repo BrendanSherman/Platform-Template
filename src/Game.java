@@ -20,6 +20,7 @@ public class Game extends BasicGame
     private Image e;
     private Camera cam = new Camera();
     int groundLevel = 922;
+    Box[] collidables = {box1, box2};
 
 
     public Game(String gamename, int x, int y) throws SlickException {
@@ -46,17 +47,21 @@ public class Game extends BasicGame
             mario.setMarioY(mario.getMarioY() + 4);
         }
 
-        if(mario.checkRightCollision(box1.leftLine)){
-            mario.setMarioX(mario.getMarioX() - 5);
+        for(int x = 0; x < collidables.length; x++){
+            for(int j = 0; j< collidables[i].getLines().length; j++){
+                if(mario.marioRightCollison(collidables[i].lines[j])){
+                    mario.setMarioX(mario.getMarioX() - 5);
+                }
+                else if(mario.marioLeftCollison(collidables[i].lines[j])){
+                    mario.setMarioX(mario.getMarioX() + 5);
+                }
+
+                else if(mario.marioFeetCollison(collidables[i].lines[j])){
+                    mario.setMarioY(mario.getMarioY() - 5);
+                }
+            }
         }
 
-        if(mario.checkBottomCollision(box1.topLine)){
-            mario.setMarioY(box1.getY() - 130);
-        }
-
-        if(mario.checkLeftCollision(box1.rightLine)){
-            mario.setMarioX(mario.getMarioX() + 5);
-        }
 
         Input input = gc.getInput();
         // check for inputs

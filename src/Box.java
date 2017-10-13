@@ -15,6 +15,7 @@ public class Box {
     public Line rightLine;
     public Line leftLine;
     public Line bottomLine;
+    public Line[] lines;
     public Box(String url, int x, int y) throws SlickException{ //Sets variables, calls draw method
        this.url = url;
        this.x = x;
@@ -28,12 +29,19 @@ public class Box {
         boxImage.draw(x, y);
     }
 
-    public void drawLines() throws SlickException{ //draws lines to check for collisions
-        topLine = new Line(x, y, x+ 128, y);
-        leftLine = new Line(x, y, x, y+128);
-        rightLine = new Line(x+128, y, x+128, y+128);
-        bottomLine = new Line(x, y+128, x+128, y+128);
+    public void drawLines() throws SlickException { //draws lines to check for collisions
+        lines = new Line[4];
+        topLine = new Line(x, y, x + 128, y);
+        leftLine = new Line(x, y, x, y + 128);
+        rightLine = new Line(x + 128, y, x + 128, y + 128);
+        bottomLine = new Line(x, y + 128, x + 128, y + 128);
+        lines[0] = topLine;
+        lines[1] = leftLine;
+        lines[2] = rightLine;
+        lines[3] = bottomLine;
     }
+
+
 
     
     public int getX() {
@@ -50,6 +58,10 @@ public class Box {
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    public Line[] getLines(){
+        return lines;
     }
 
 }

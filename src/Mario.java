@@ -38,31 +38,23 @@ public class Mario {
         marioLeftRectangle = new Rectangle(marioX + 32, marioY + 32, 16, 128);
     }
 
-    public boolean checkRightCollision(Line otherThing){ //checks for a right collision
-        Draw(marioDir);
-        if(otherThing.intersects(marioRightRectangle)){
+   public boolean marioFeetCollison(Line l){   //checks for feet collision
+        if (marioFeetRectangle.intersects(l))
             return true;
-        }
-        else{
+        else
             return false;
-        }
+   }
+
+    public boolean marioLeftCollison(Line l){  //checks for left collision
+        if (marioLeftRectangle.intersects(l))
+            return true;
+        else
+            return false;
     }
 
-    public boolean checkBottomCollision(Line otherThing){ //checks for a bottom collision
-        Draw(marioDir);
-        if(otherThing.intersects(marioFeetRectangle)){
+    public boolean marioRightCollison(Line l){  //checks for right collision
+        if (marioRightRectangle.intersects(l))
             return true;
-        }
-        else{
-            return false;
-        }
-    }
-
-    public boolean checkLeftCollision(Line otherThing){ //checks for Left collision
-        Draw(marioDir);
-        if(otherThing.intersects(marioLeftRectangle)){
-            return true;
-        }
         else
             return false;
     }
