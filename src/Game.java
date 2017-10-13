@@ -6,6 +6,7 @@ import org.newdawn.slick.geom.Rectangle;
 
 public class Game extends BasicGame
 {
+    // pull request 1
     private Image marioRight;
     private Image marioLeft;
     private Box box1;
