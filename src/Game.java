@@ -6,8 +6,10 @@ import org.newdawn.slick.geom.Rectangle;
 
 public class Game extends BasicGame
 {
+    // pull request 1
     private Image marioRight;
     private Image marioLeft;
+    private Image uselessImage;
     private Box box1;
     private Box box2;
     private Mario mario;
@@ -57,6 +59,7 @@ public class Game extends BasicGame
         }
 
         Input input = gc.getInput();
+        // check for inputs
         if(input.isKeyDown(Input.KEY_RIGHT)){
             mario.setMarioX(mario.getMarioX() + 2);
             mario.marioDir = "right";
@@ -149,6 +152,7 @@ public class Game extends BasicGame
         Game g = new Game("Game", 30, 930);
         try // Creates a new AppContainer and sets resolution, update interval, fullscreen status, and target framerate.
         {
+            // iniitialize game
             AppGameContainer appgc;
             appgc = new AppGameContainer(g);
             appgc.setDisplayMode(1920, 1080, false);
