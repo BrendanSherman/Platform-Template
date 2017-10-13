@@ -9,6 +9,4 @@ public class Camera {
     int offsetMaxY = WORLD_HEIGHT - VIEWPORT_HEIGHT;
     int offsetMinX = 0;
     int offsetMinY = 0;
-
-
 }

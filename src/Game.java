@@ -9,6 +9,7 @@ public class Game extends BasicGame
     private Image marioRight;
     private Image marioLeft;
     private Box box1;
+    private Box box2;
     private Mario mario;
     private Image bg;
     private Music song = new Music("resources/music/song1.ogg");
@@ -27,8 +28,10 @@ public class Game extends BasicGame
     public void init(GameContainer gc) throws SlickException {
         song.play();
         song.loop();
-        box1 = new Box("resources/images/blocks/questionMarkBlock1.png", 500, 952);
+        box1 = new Box("resources/images/blocks/brickBlock1.png", 500, 952);
         box1.drawLines();
+        box2 = new Box("resources/images/blocks/questionMarkBlock1.png", 700, 700);
+        box2.drawLines();
         bg = new Image("resources/images/background1.png");
         marioLeft = new Image("resources/images/marioFacingLeft.png");
         marioRight = new Image("resources/images/marioFacingRight.png");
@@ -126,6 +129,7 @@ public class Game extends BasicGame
 
         // Draws a question mark block.
         box1.draw();
+        box2.draw();
 
     }
 
