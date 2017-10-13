@@ -55,6 +55,7 @@ public class Game extends BasicGame
         }
 
         Input input = gc.getInput();
+        // check for inputs
         if(input.isKeyDown(Input.KEY_RIGHT)){
             mario.setMarioX(mario.getMarioX() + 2);
             mario.marioDir = "right";
