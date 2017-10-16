@@ -1,4 +1,4 @@
-public class Camera {
+public class Camera { //camera constants
     int camX;
     int camY;
     int WORLD_WIDTH = 10000;
