@@ -27,7 +27,7 @@ public class Game extends BasicGame
     }
 
     @Override
-    public void init(GameContainer gc) throws SlickException {
+    public void init(GameContainer gc) throws SlickException { //Implicity called at the start
         song.play();
         song.loop();
         box1 = new Box("resources/images/blocks/brickBlock1.png", 500, 952);
