@@ -20,7 +20,7 @@ public class Game extends BasicGame
     private Image e;
     private Camera cam = new Camera();
     int groundLevel = 922;
-    Box[] collidables = {box1, box2};
+    Box[] collidables = new Box[2];
 
 
     public Game(String gamename, int x, int y) throws SlickException {
@@ -32,9 +32,7 @@ public class Game extends BasicGame
         song.play();
         song.loop();
         box1 = new Box("resources/images/blocks/brickBlock1.png", 500, 952);
-        box1.drawLines();
         box2 = new Box("resources/images/blocks/questionMarkBlock1.png", 700, 700);
-        box2.drawLines();
         bg = new Image("resources/images/background1.png");
         marioLeft = new Image("resources/images/marioFacingLeft.png");
         marioRight = new Image("resources/images/marioFacingRight.png");
@@ -43,21 +41,25 @@ public class Game extends BasicGame
 
     @Override
     public void update(GameContainer gc, int i) throws SlickException {
+
+        collidables[0] = box1;
+        collidables[1] = box2;
+
         if (mario.getMarioY() < groundLevel && jumpStage == 0){ //gravity
             mario.setMarioY(mario.getMarioY() + 4);
         }
 
-        for(int x = 0; x < collidables.length; x++){
-            for(int j = 0; j< collidables[i].getLines().length; j++){
-                if(mario.marioRightCollison(collidables[i].lines[j])){
-                    mario.setMarioX(mario.getMarioX() - 5);
+        for(int x = 0; x < collidables.length; x++){            //checks for collisions with all entities in the level
+            for(int j = 0; j< collidables[x].getLines().length; j++){
+                if(mario.marioRightCollison(collidables[x].lines[j]) && collidables[x].lines[j] == collidables[x].leftLine){
+                    mario.setMarioX(mario.getMarioX() - 2);
                 }
-                else if(mario.marioLeftCollison(collidables[i].lines[j])){
-                    mario.setMarioX(mario.getMarioX() + 5);
+                if(mario.marioLeftCollison(collidables[x].lines[j])&& collidables[x].lines[j] == collidables[x].rightLine){
+                    mario.setMarioX(mario.getMarioX() + 2);
                 }
 
-                else if(mario.marioFeetCollison(collidables[i].lines[j])){
-                    mario.setMarioY(mario.getMarioY() - 5);
+                if(mario.marioFeetCollison(collidables[x].lines[j])&& collidables[x].lines[j] == collidables[x].topLine){
+                    mario.setMarioY(collidables[x].getY()-130);
                 }
             }
         }
@@ -112,7 +114,8 @@ public class Game extends BasicGame
             cam.camY = cam.offsetMaxY;
         else if (cam.camY < cam.offsetMinY)
             cam.camY = cam.offsetMinY;
-
+        System.out.println(mario.getMarioY() + "mario");
+        System.out.println(box1.getY());
     }
 
     @Override
@@ -124,16 +127,18 @@ public class Game extends BasicGame
             bg.draw(i, 0);
         }
 
+        box1.draw();
+        box1.drawLines();
+
+        box2.draw();
+        box2.drawLines();
+
         mario.Draw(mario.marioDir);
 
         //draws the ground
         g.setColor(Color.green);
         g.fillRect(0, 1050, 10000, 30);
 
-
-        // Draws a question mark block.
-        box1.draw();
-        box2.draw();
 
     }
 
