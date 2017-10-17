@@ -45,9 +45,6 @@ public class Game extends BasicGame
         collidables[0] = box1;
         collidables[1] = box2;
 
-        if (mario.getMarioY() < groundLevel && jumpStage == 0){ //gravity
-            mario.setMarioY(mario.getMarioY() + 4);
-        }
 
         for(int x = 0; x < collidables.length; x++){            //checks for collisions with all entities in the level dab
             for(int j = 0; j< collidables[x].getLines().length; j++){
@@ -63,6 +60,11 @@ public class Game extends BasicGame
                 }
             }
         }
+
+        if (mario.getMarioY() < groundLevel && jumpStage == 0){ //gravity
+            mario.setMarioY(mario.getMarioY() + 4);
+        }
+
 
 
         Input input = gc.getInput();
@@ -114,8 +116,6 @@ public class Game extends BasicGame
             cam.camY = cam.offsetMaxY;
         else if (cam.camY < cam.offsetMinY)
             cam.camY = cam.offsetMinY;
-        System.out.println(mario.getMarioY() + "mario");
-        System.out.println(box1.getY());
     }
 
     @Override
