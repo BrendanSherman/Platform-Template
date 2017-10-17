@@ -49,7 +49,7 @@ public class Game extends BasicGame
             mario.setMarioY(mario.getMarioY() + 4);
         }
 
-        for(int x = 0; x < collidables.length; x++){            //checks for collisions with all entities in the level
+        for(int x = 0; x < collidables.length; x++){            //checks for collisions with all entities in the level dab
             for(int j = 0; j< collidables[x].getLines().length; j++){
                 if(mario.marioRightCollison(collidables[x].lines[j]) && collidables[x].lines[j] == collidables[x].leftLine){
                     mario.setMarioX(mario.getMarioX() - 2);
