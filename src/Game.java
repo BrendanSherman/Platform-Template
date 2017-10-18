@@ -1,12 +1,16 @@
+import java.awt.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.newdawn.slick.*;
+import org.newdawn.slick.Color;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Rectangle;
 
 public class Game extends BasicGame
 {
-    // pull request 1
+    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private Image marioRight;
     private Image marioLeft;
     private Image uselessImage;
@@ -50,13 +54,20 @@ public class Game extends BasicGame
             for(int j = 0; j< collidables[x].getLines().length; j++){
                 if(mario.marioRightCollison(collidables[x].lines[j]) && collidables[x].lines[j] == collidables[x].leftLine){
                     mario.setMarioX(mario.getMarioX() - 2);
+                    mario.rightCollision = true;
                 }
                 if(mario.marioLeftCollison(collidables[x].lines[j])&& collidables[x].lines[j] == collidables[x].rightLine){
                     mario.setMarioX(mario.getMarioX() + 2);
+                    mario.leftCollision = true;
                 }
 
                 if(mario.marioFeetCollison(collidables[x].lines[j])&& collidables[x].lines[j] == collidables[x].topLine){
                     mario.setMarioY(collidables[x].getY()-130);
+                    mario.feetCollision = true;
+                }
+                if(mario.marioHeadCollision(collidables[x].lines[j]) && collidables[x].lines[j] == collidables[x].bottomLine){
+                    jumpStage = 0;
+                    mario.headCollision = true;
                 }
             }
         }
@@ -64,7 +75,6 @@ public class Game extends BasicGame
         if (mario.getMarioY() < groundLevel && jumpStage == 0){ //gravity
             mario.setMarioY(mario.getMarioY() + 4);
         }
-
 
 
         Input input = gc.getInput();
@@ -81,7 +91,7 @@ public class Game extends BasicGame
             mario.Draw(mario.marioDir);
         }
 
-        if (input.isKeyDown(Input.KEY_SPACE) && jumpStage == 0){
+        if (input.isKeyDown(Input.KEY_SPACE) && (mario.getMarioY() == 922 || mario.feetCollision)){
             jumpStage++;
             jumpSound.play();
         }
@@ -116,6 +126,11 @@ public class Game extends BasicGame
             cam.camY = cam.offsetMaxY;
         else if (cam.camY < cam.offsetMinY)
             cam.camY = cam.offsetMinY;
+
+        mario.feetCollision = false;
+        mario.headCollision = false;
+        mario.leftCollision = false;
+        mario.rightCollision = false;
     }
 
     @Override

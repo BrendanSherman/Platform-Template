@@ -10,8 +10,13 @@ public class Mario {
     private Rectangle marioFeetRectangle;
     private Rectangle marioRightRectangle;
     private Rectangle marioLeftRectangle;
+    private Rectangle marioHeadRectangle;
     private Image marioRight;
     private Image marioLeft;
+    boolean feetCollision = false;
+    boolean headCollision = false;
+    boolean leftCollision = false;
+    boolean rightCollision = false;
     public String marioDir;
     SpriteSheet smallMarioSheetMovement = new SpriteSheet("resources/images/smallMarioSheetMovement.png", 120, 128, 8);
     SpriteSheet smallMarioSheetMovement2 = new SpriteSheet("resources/images/smallMarioSheetMovement2.png", 120, 128, 8);
@@ -35,9 +40,15 @@ public class Mario {
 
         marioFeetRectangle = new Rectangle(marioX, marioY + 118, 128, 10); //sets bottom hitbox
         marioRightRectangle = new Rectangle(marioX + 75, marioY + 32, 13, 128); //sets right hitbox
-        marioLeftRectangle = new Rectangle(marioX + 32, marioY + 32, 16, 128);
+        marioLeftRectangle = new Rectangle(marioX + 32, marioY + 32, 16, 128); //sets left hitbox
+        marioHeadRectangle = new Rectangle(marioX + 32, marioY, 128, 8);
     }
-
+   public boolean marioHeadCollision(Line l) {
+        if(marioHeadRectangle.intersects(l))
+            return true;
+        else
+            return false;
+   }
    public boolean marioFeetCollison(Line l){   //checks for feet collision
         if (marioFeetRectangle.intersects(l))
             return true;
