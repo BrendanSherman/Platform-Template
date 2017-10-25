@@ -37,11 +37,11 @@ public class Box {
     }
 
     public void drawLines() throws SlickException { //draws lines to check for collisions
-        lines = new Line[5];
+        lines = new Line[4];
         topLine = new Line(x, y, x + 128, y);
         leftLine = new Line(x, y, x, y + 128);
         rightLine = new Line(x + 128, y, x + 128, y + 128);
-        bottomLine = new Line(x, y + 90, x + 70, y + 90);
+        bottomLine = new Line(x, y + 90, x + 128, y + 90);
 
         lines[0] = topLine;
         lines[1] = leftLine;
