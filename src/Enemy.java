@@ -8,4 +8,5 @@ abstract class Enemy{
     abstract public boolean checkTopCollision();
     abstract public boolean checkLeftCollision();
     abstract public boolean checkRightCollision();
+    abstract public boolean checkBottomCollision();
 }

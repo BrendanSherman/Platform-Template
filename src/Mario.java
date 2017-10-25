@@ -5,11 +5,12 @@ import org.newdawn.slick.geom.Line;
 import org.newdawn.slick.geom.Rectangle;
 
 public class Mario {
-    private int marioX;
+    private int marioX; //mario coordinates
     private int marioY;
-    private Rectangle marioFeetRectangle;
+    private Rectangle marioFeetRectangle;  //mario hitboxes
     private Rectangle marioRightRectangle;
     private Rectangle marioLeftRectangle;
+    private Rectangle marioHeadRectangle;
     private Image marioRight;
     private Image marioLeft;
     private Image marioImage;
@@ -17,6 +18,11 @@ public class Mario {
     public int marioRightStage = 0;
     public String marioDir;
     SpriteSheet smallMarioSheetMovement = new SpriteSheet("resources/images/smallMarioSheetMovement.png", 128, 128, 8);
+    boolean feetCollision = false;  //used to check for mario collisions
+    boolean headCollision = false;
+    boolean leftCollision = false;
+    boolean rightCollision = false;
+    public String marioDir; //checks for mario's direction for animation
     SpriteSheet smallMarioSheetMovement2 = new SpriteSheet("resources/images/smallMarioSheetMovement2.png", 120, 128, 8);
     private int imageState = 0;
 
@@ -37,8 +43,9 @@ public class Mario {
         }
         marioImage.draw(marioX, marioY);
         marioFeetRectangle = new Rectangle(marioX, marioY + 118, 128, 10); //sets bottom hitbox
-        marioRightRectangle = new Rectangle(marioX + 75, marioY + 32, 13, 128); //sets right hitbox
-        marioLeftRectangle = new Rectangle(marioX + 32, marioY + 32, 16, 128);
+        marioRightRectangle = new Rectangle(marioX + 75, marioY + 32, 13, 60); //sets right hitbox
+        marioLeftRectangle = new Rectangle(marioX + 32, marioY + 32, 16, 60); //sets left hitbox
+        marioHeadRectangle = new Rectangle(marioX , marioY, 96, 8);
     }
     // this method, given marioStage, will return the correct mario image.
     public Image getMarioImage(int marioStage) {
@@ -68,15 +75,22 @@ public class Mario {
          else
              return false;
     }
+   public boolean marioHeadCollision(Line l) { //checks for head collision with a specific line
+       if(marioHeadRectangle.intersects(l))
+            return true;
+        else
+            return false;
 
-    public boolean marioLeftCollison(Line l){  //checks for left collision
+   }
+  
+    public boolean marioLeftCollison(Line l){  //checks for left collision with a specific line
         if (marioLeftRectangle.intersects(l))
             return true;
         else
             return false;
     }
 
-    public boolean marioRightCollison(Line l){  //checks for right collision
+    public boolean marioRightCollison(Line l){  //checks for right collision with a specific line
         if (marioRightRectangle.intersects(l))
             return true;
         else

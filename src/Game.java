@@ -1,17 +1,19 @@
+import java.awt.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.newdawn.slick.*;
+import org.newdawn.slick.Color;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Rectangle;
 
 public class Game extends BasicGame
 {
-    // pull request 1
-    private Image marioRight;
-    private Image marioLeft;
+    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private Image uselessImage;
     private Box box1;
-    private Box box2;
+    private QuestionBox qBox1;
     private Mario mario;
     private Image bg;
     private Music song = new Music("resources/music/song1.ogg");
@@ -32,10 +34,8 @@ public class Game extends BasicGame
         song.play();
         song.loop();
         box1 = new Box("resources/images/blocks/brickBlock1.png", 500, 952);
-        box2 = new Box("resources/images/blocks/questionMarkBlock1.png", 700, 852);
+        qBox1= new QuestionBox(900, 700, "shroom");
         bg = new Image("resources/images/background1.png");
-        marioLeft = new Image("resources/images/marioFacingLeft.png");
-        marioRight = new Image("resources/images/marioFacingRight.png");
         mario = new Mario(80, groundLevel);
     }
 
@@ -43,20 +43,31 @@ public class Game extends BasicGame
     public void update(GameContainer gc, int i) throws SlickException {
 
         collidables[0] = box1;
-        collidables[1] = box2;
+        collidables[1] = qBox1;
 
 
-        for(int x = 0; x < collidables.length; x++){            //checks for collisions with all entities in the level dab
+        for(int x = 0; x < collidables.length; x++){
+            if(collidables[x] instanceof QuestionBox){
+                collidables[x].bottomCollision(mario);
+            }
+            //checks for collisions with all entities in the level dab
             for(int j = 0; j< collidables[x].getLines().length; j++){
                 if(mario.marioRightCollison(collidables[x].lines[j]) && collidables[x].lines[j] == collidables[x].leftLine){
                     mario.setMarioX(mario.getMarioX() - 2);
+                    mario.rightCollision = true;
                 }
                 if(mario.marioLeftCollison(collidables[x].lines[j])&& collidables[x].lines[j] == collidables[x].rightLine){
                     mario.setMarioX(mario.getMarioX() + 2);
+                    mario.leftCollision = true;
                 }
 
                 if(mario.marioFeetCollison(collidables[x].lines[j])&& collidables[x].lines[j] == collidables[x].topLine){
                     mario.setMarioY(collidables[x].getY()-130);
+                    mario.feetCollision = true;
+                }
+                if(mario.marioHeadCollision(collidables[x].lines[j]) && collidables[x].lines[j] == collidables[x].bottomLine){
+                    jumpStage = 0;
+                    mario.headCollision = true;
                 }
             }
         }
@@ -96,7 +107,7 @@ public class Game extends BasicGame
             mario.marioRightStage = 0;
         }
 
-        if (input.isKeyDown(Input.KEY_SPACE) && jumpStage == 0){
+        if (input.isKeyDown(Input.KEY_SPACE) && (mario.getMarioY() == 922 || mario.feetCollision)){
             jumpStage++;
             jumpSound.play();
             mario.marioLeftStage = 0;
@@ -133,6 +144,11 @@ public class Game extends BasicGame
             cam.camY = cam.offsetMaxY;
         else if (cam.camY < cam.offsetMinY)
             cam.camY = cam.offsetMinY;
+
+        mario.feetCollision = false;
+        mario.headCollision = false;
+        mario.leftCollision = false;
+        mario.rightCollision = false;
     }
 
     @Override
@@ -147,8 +163,8 @@ public class Game extends BasicGame
         box1.draw();
         box1.drawLines();
 
-        box2.draw();
-        box2.drawLines();
+        qBox1.draw();
+        qBox1.drawLines();
 
         mario.Draw(mario.marioDir);
 
