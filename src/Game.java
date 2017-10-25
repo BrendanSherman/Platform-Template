@@ -18,12 +18,12 @@ public class Game extends BasicGame
     private Image bg;
     private Music song = new Music("resources/music/song1.ogg");
     private int jumpStage = 0;
+    private int animationStage = 0;
     private Sound jumpSound = new Sound("resources/music/smb_jump-small.wav");
     private Image e;
     private Camera cam = new Camera();
     int groundLevel = 922;
     Box[] collidables = new Box[2];
-
 
     public Game(String gamename, int x, int y) throws SlickException {
         super(gamename);
@@ -76,26 +76,42 @@ public class Game extends BasicGame
             mario.setMarioY(mario.getMarioY() + 4);
         }
 
-
-
-
         Input input = gc.getInput();
         // check for inputs
-        if(input.isKeyDown(Input.KEY_RIGHT)){
+        if (input.isKeyDown(Input.KEY_RIGHT)) {
             mario.setMarioX(mario.getMarioX() + 2);
             mario.marioDir = "right";
             mario.Draw(mario.marioDir);
+            if(mario.marioRightStage < 30) {
+                mario.marioRightStage++;
+            }
+            else{
+                mario.marioRightStage = 1;
+            }
+            mario.marioLeftStage = 0;
         }
-
-        if(input.isKeyDown(Input.KEY_LEFT)){
+        else if(input.isKeyDown(Input.KEY_LEFT)){
             mario.setMarioX(mario.getMarioX() - 2);
             mario.marioDir = "left";
             mario.Draw(mario.marioDir);
+            if(mario.marioLeftStage < 30) {
+                mario.marioLeftStage++;
+            }
+            else{
+                mario.marioLeftStage = 1;
+            }
+            mario.marioRightStage = 0;
+        }
+        else {
+            mario.marioLeftStage = 0;
+            mario.marioRightStage = 0;
         }
 
         if (input.isKeyDown(Input.KEY_SPACE) && (mario.getMarioY() == 922 || mario.feetCollision)){
             jumpStage++;
             jumpSound.play();
+            mario.marioLeftStage = 0;
+            mario.marioRightStage = 0;
         }
         //update jump animation
         if(jumpStage > 0) {
