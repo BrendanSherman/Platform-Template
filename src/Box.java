@@ -49,7 +49,7 @@ public class Box {
         lines[3] = bottomLine;
     }
 
-    public void bottomCollision(Mario mario) throws SlickException{};
+    public void bottomCollision(Mario mario) throws SlickException{}; //to be overrided
 
     
     public int getX() {
