@@ -39,9 +39,9 @@ public class Mario {
         }
 
         marioFeetRectangle = new Rectangle(marioX, marioY + 118, 128, 10); //sets bottom hitbox
-        marioRightRectangle = new Rectangle(marioX + 75, marioY + 32, 13, 128); //sets right hitbox
-        marioLeftRectangle = new Rectangle(marioX + 32, marioY + 32, 16, 128); //sets left hitbox
-        marioHeadRectangle = new Rectangle(marioX + 32, marioY, 128, 8);
+        marioRightRectangle = new Rectangle(marioX + 75, marioY + 32, 13, 60); //sets right hitbox
+        marioLeftRectangle = new Rectangle(marioX + 32, marioY + 32, 16, 60); //sets left hitbox
+        marioHeadRectangle = new Rectangle(marioX , marioY, 96, 8);
     }
    public boolean marioHeadCollision(Line l) { //checks for head collision with a specific line
        if(marioHeadRectangle.intersects(l))

@@ -16,12 +16,12 @@ public class QuestionBox extends Box{
     }
 
     @Override
-    public void bottomCollision(Mario mario){
+    public void bottomCollision (Mario mario) throws SlickException{
         if(mario.marioHeadCollision(this.bottomLine)){
             this.url = "resources/images/blocks/emptyQuestionBlock.png";
 
             if(type.equals("shroom")){
-                //TODO spawn a mushroom that moves
+                //TODO spawn shroom
             }
             if(type.equals("fire")){
                 //TODO spawn fire flower on top of box

@@ -11,8 +11,6 @@ import org.newdawn.slick.geom.Rectangle;
 public class Game extends BasicGame
 {
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    private Image marioRight;
-    private Image marioLeft;
     private Image uselessImage;
     private Box box1;
     private QuestionBox qBox1;
@@ -38,8 +36,6 @@ public class Game extends BasicGame
         box1 = new Box("resources/images/blocks/brickBlock1.png", 500, 952);
         qBox1= new QuestionBox(900, 700, "shroom");
         bg = new Image("resources/images/background1.png");
-        marioLeft = new Image("resources/images/marioFacingLeft.png");
-        marioRight = new Image("resources/images/marioFacingRight.png");
         mario = new Mario(80, groundLevel);
     }
 
