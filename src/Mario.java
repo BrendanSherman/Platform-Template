@@ -25,7 +25,7 @@ public class Mario {
     public String marioDir; //checks for mario's direction for animation
     SpriteSheet smallMarioSheetMovement2 = new SpriteSheet("resources/images/smallMarioSheetMovement2.png", 120, 128, 8);
     private int imageState = 0;
-    // fuck your brendan i do not like you because you are irish
+
 
     public Mario(int x, int y) throws SlickException{ //sets variables
         this.marioRight = marioRight;
