@@ -5,7 +5,7 @@ public class QuestionBox extends Box{
     private String type = "";
     String url = "resources/images/blocks/questionMarkBlock1.png";
 
-    public QuestionBox(int x, int y, String type) throws SlickException {
+    public QuestionBox(int x, int y, String type) throws SlickException { //takes constructor from box
         super(x,y);
     }
 
