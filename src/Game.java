@@ -15,7 +15,7 @@ public class Game extends BasicGame
     private Image marioLeft;
     private Image uselessImage;
     private Box box1;
-    private Box box2;
+    private QuestionBox qBox1;
     private Mario mario;
     private Image bg;
     private Music song = new Music("resources/music/song1.ogg");
@@ -36,7 +36,7 @@ public class Game extends BasicGame
         song.play();
         song.loop();
         box1 = new Box("resources/images/blocks/brickBlock1.png", 500, 952);
-        box2 = new Box("resources/images/blocks/questionMarkBlock1.png", 700, 700);
+        qBox1= new QuestionBox(900, 700, "shroom");
         bg = new Image("resources/images/background1.png");
         marioLeft = new Image("resources/images/marioFacingLeft.png");
         marioRight = new Image("resources/images/marioFacingRight.png");
@@ -47,10 +47,14 @@ public class Game extends BasicGame
     public void update(GameContainer gc, int i) throws SlickException {
 
         collidables[0] = box1;
-        collidables[1] = box2;
+        collidables[1] = qBox1;
 
 
-        for(int x = 0; x < collidables.length; x++){            //checks for collisions with all entities in the level dab
+        for(int x = 0; x < collidables.length; x++){
+            if(collidables[x] instanceof QuestionBox){
+                collidables[x].bottomCollision(mario);
+            }
+            //checks for collisions with all entities in the level dab
             for(int j = 0; j< collidables[x].getLines().length; j++){
                 if(mario.marioRightCollison(collidables[x].lines[j]) && collidables[x].lines[j] == collidables[x].leftLine){
                     mario.setMarioX(mario.getMarioX() - 2);
@@ -75,6 +79,8 @@ public class Game extends BasicGame
         if (mario.getMarioY() < groundLevel && jumpStage == 0){ //gravity
             mario.setMarioY(mario.getMarioY() + 4);
         }
+
+
 
 
         Input input = gc.getInput();
@@ -145,8 +151,8 @@ public class Game extends BasicGame
         box1.draw();
         box1.drawLines();
 
-        box2.draw();
-        box2.drawLines();
+        qBox1.draw();
+        qBox1.drawLines();
 
         mario.Draw(mario.marioDir);
 
