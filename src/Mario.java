@@ -16,7 +16,6 @@ public class Mario {
     private Image marioImage;
     public int marioLeftStage = 0;
     public int marioRightStage = 0;
-    public String marioDir;
     SpriteSheet smallMarioSheetMovement = new SpriteSheet("resources/images/smallMarioSheetMovement.png", 128, 128, 8);
     boolean feetCollision = false;  //used to check for mario collisions
     boolean headCollision = false;
