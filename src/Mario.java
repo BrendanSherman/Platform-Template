@@ -14,9 +14,10 @@ public class Mario {
     private Image marioRight;
     private Image marioLeft;
     private Image marioImage;
+    public String marioState = "walk";
     public int marioLeftStage = 0;
     public int marioRightStage = 0;
-    SpriteSheet smallMarioSheetMovement = new SpriteSheet("resources/images/smallMarioSheetMovement.png", 128, 128, 8);
+    SpriteSheet smallMarioSheet = new SpriteSheet("resources/images/smallMarioSheet.png", 128, 128, 8);
     boolean feetCollision = false;  //used to check for mario collisions
     boolean headCollision = false;
     boolean leftCollision = false;
@@ -49,21 +50,26 @@ public class Mario {
     // this method, given marioStage, will return the correct mario image.
     public Image getMarioImage(int marioStage) {
         // magic numbers are my magic
-        Image image;
-        if (marioStage == 0) {
-            image = smallMarioSheetMovement.getSubImage(0, 0);
+        Image image = smallMarioSheet.getSubImage(4, 0);
+        if (marioState == "walk") {
+            if (marioStage == 0) {
+                image = smallMarioSheet.getSubImage(0, 0);
+            }
+            else if (marioStage >= 1 && marioStage <= 10) {
+                image = smallMarioSheet.getSubImage(1, 0);
+            }
+            else if (marioStage >= 1 && marioStage <= 20) {
+                image = smallMarioSheet.getSubImage(2, 0);
+            }
+            else if (marioStage >= 11 && marioStage <= 30) {
+                image = smallMarioSheet.getSubImage(3, 0);
+            }
         }
-        else if (marioStage >= 1 && marioStage <= 10) {
-            image = smallMarioSheetMovement.getSubImage(1, 0);
+        else if (marioState == "jump") {
+            image = smallMarioSheet.getSubImage(5, 0);
         }
-        else if (marioStage >= 1 && marioStage <= 20) {
-            image = smallMarioSheetMovement.getSubImage(2, 0);
-        }
-        else if (marioStage >= 11 && marioStage <= 30) {
-            image = smallMarioSheetMovement.getSubImage(3, 0);
-        }
-        else {
-            image = smallMarioSheetMovement.getSubImage(0, 0);
+        else if (marioState == "swim") {
+            //todo implement swimming animation
         }
         return image;
     }
