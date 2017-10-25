@@ -26,7 +26,6 @@ public class Mario {
     SpriteSheet smallMarioSheetMovement2 = new SpriteSheet("resources/images/smallMarioSheetMovement2.png", 120, 128, 8);
     private int imageState = 0;
 
-
     public Mario(int x, int y) throws SlickException{ //sets variables
         this.marioRight = marioRight;
         this.marioLeft = marioLeft;
