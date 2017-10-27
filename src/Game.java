@@ -35,7 +35,7 @@ public class Game extends BasicGame
         song.loop();
         box1 = new Box("resources/images/blocks/brickBlock1.png", 500, 952);
         qBox1= new QuestionBox(900, 700, "shroom");
-        bg = new Image("resources/images/background1.png");
+        bg = new Image("resources/images/background1Clean.png");
         mario = new Mario(80, groundLevel);
     }
 
