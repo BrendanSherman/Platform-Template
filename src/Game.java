@@ -45,7 +45,6 @@ public class Game extends BasicGame
         collidables[0] = box1;
         collidables[1] = qBox1;
 
-
         for(int x = 0; x < collidables.length; x++){
             if(collidables[x] instanceof QuestionBox){
                 collidables[x].bottomCollision(mario);
