@@ -19,6 +19,7 @@ public class Mario {
     public String marioState = "walk";
     public int marioLeftStage = 0;
     public int marioRightStage = 0;
+    public boolean isJumping = false;
     SpriteSheet smallMarioSheet = new SpriteSheet("resources/images/smallMarioSheet.png", 128, 128, 8);
     boolean feetCollision = false;  //used to check for mario collisions
     boolean headCollision = false;

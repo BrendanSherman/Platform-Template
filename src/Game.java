@@ -10,8 +10,6 @@ import org.newdawn.slick.geom.Rectangle;
 
 public class Game extends BasicGame
 {
-    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    private Image uselessImage;
     private Box box1;
     private QuestionBox qBox1;
     private Mario mario;
@@ -109,6 +107,7 @@ public class Game extends BasicGame
         if (input.isKeyDown(Input.KEY_SPACE) && (mario.getMarioY() == 922 || mario.feetCollision)){
             jumpStage++;
             jumpSound.play();
+            mario.marioState = "jump";
             mario.marioLeftStage = 0;
             mario.marioRightStage = 0;
         }
@@ -118,16 +117,23 @@ public class Game extends BasicGame
                 mario.setMarioY(mario.getMarioY() - 4);
                 mario.Draw(mario.marioDir);
                 jumpStage++;
+                mario.marioState = "jump";
             } else if (jumpStage >= 60 && jumpStage < 120) {
                 mario.setMarioY(mario.getMarioY() + 4);
                 mario.Draw(mario.marioDir);
                 jumpStage++;
+
             }
             if (jumpStage  == 120) {
+                mario.marioState = "jump";
                 jumpStage = 0;
                 mario.setMarioY(mario.getMarioY() - 4);
                 mario.Draw(mario.marioDir);
             }
+        }
+
+        if (mario.feetCollision || mario.getMarioY() == groundLevel) {
+            mario.marioState = "walk";
         }
 
         //update camera x and y
