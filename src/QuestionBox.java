@@ -17,7 +17,7 @@ public class QuestionBox extends Box{
 
     @Override
     public void bottomCollision (Mario mario) throws SlickException{
-        if(mario.marioHeadCollision(this.bottomLine)){
+        if(mario.marioHeadCollision(this.bottomRectangle)){
             this.url = "resources/images/blocks/emptyQuestionBlock.png";
 
             if(type.equals("shroom")){
