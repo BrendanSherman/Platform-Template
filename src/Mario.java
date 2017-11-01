@@ -3,14 +3,16 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Line;
 import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Shape;
+import org.w3c.dom.css.Rect;
 
 public class Mario {
     private int marioX; //mario coordinates
     private int marioY;
-    private Rectangle marioFeetRectangle;  //mario hitboxes
-    private Rectangle marioRightRectangle;
-    private Rectangle marioLeftRectangle;
-    private Rectangle marioHeadRectangle;
+    private myRectangle marioFeetRectangle;  //mario hitboxes
+    private myRectangle marioRightRectangle;
+    private myRectangle marioLeftRectangle;
+    private myRectangle marioHeadRectangle;
     private Image marioRight;
     private Image marioLeft;
     private Image marioImage;
@@ -42,10 +44,10 @@ public class Mario {
             marioImage = getMarioImage(marioLeftStage).getFlippedCopy(true, false);
         }
         marioImage.draw(marioX, marioY);
-        marioFeetRectangle = new Rectangle(marioX, marioY + 118, 128, 10); //sets bottom hitbox
-        marioRightRectangle = new Rectangle(marioX + 75, marioY + 32, 13, 60); //sets right hitbox
-        marioLeftRectangle = new Rectangle(marioX + 32, marioY + 32, 16, 60); //sets left hitbox
-        marioHeadRectangle = new Rectangle(marioX , marioY, 96, 8);
+        marioFeetRectangle = new myRectangle(marioX + 16, marioY + 118, 96, 10); //sets bottom hitbox
+        marioRightRectangle = new myRectangle(marioX + 75, marioY + 32, 13, 60); //sets right hitbox
+        marioLeftRectangle = new myRectangle(marioX + 32, marioY + 32, 16, 60); //sets left hitbox
+        marioHeadRectangle = new myRectangle(marioX + 16, marioY, 96, 8);
     }
     // this method, given marioStage, will return the correct mario image.
     public Image getMarioImage(int marioStage) {
@@ -74,33 +76,36 @@ public class Mario {
         return image;
     }
 
-    public boolean marioFeetCollison(Line l){   //checks for feet collision
-         if (marioFeetRectangle.intersects(l))
+    public boolean marioFeetCollison(Shape s){   //checks for feet collision
+         if (s.intersects((marioFeetRectangle)))
              return true;
          else
              return false;
     }
-   public boolean marioHeadCollision(Line l) { //checks for head collision with a specific line
-       if(marioHeadRectangle.intersects(l))
+    public boolean marioHeadCollision(Shape s) { //checks for head collision with a specific line
+        if(s.intersects(marioHeadRectangle))
             return true;
         else
             return false;
 
-   }
+    }
   
-    public boolean marioLeftCollison(Line l){  //checks for left collision with a specific line
-        if (marioLeftRectangle.intersects(l))
+    public boolean marioLeftCollison(Shape s){  //checks for left collision with a specific line
+        if (s.intersects(marioLeftRectangle))
             return true;
         else
             return false;
     }
 
-    public boolean marioRightCollison(Line l){  //checks for right collision with a specific line
-        if (marioRightRectangle.intersects(l))
+
+    public boolean marioRightCollison(Shape s){  //checks for right collision with a specific line
+        if (marioRightRectangle.intersects(s))
             return true;
         else
             return false;
     }
+
+
 
     //getters and setters for X and Y
 

@@ -1,20 +1,23 @@
 import org.newdawn.slick.*;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.*;
+import org.newdawn.slick.geom.Rectangle;
 
 import java.awt.*;
 import java.awt.Graphics;
+import java.util.ArrayList;
 
 //Box class
 public class Box {
     private String url;
     protected int x;
     protected int y;
-    public Line topLine;
-    public Line rightLine;
-    public Line leftLine;
-    public Line bottomLine;
-    public Line[] lines;
+    public myRectangle topRectangle;
+    public myLine rightLine;
+    public myLine leftLine;
+    public myRectangle bottomRectangle;
+    public ArrayList<Collisions> lines;
+
 
 
     public Box(String url, int x, int y) throws SlickException{ //Sets variables, calls draw method
@@ -37,16 +40,16 @@ public class Box {
     }
 
     public void drawLines() throws SlickException { //draws lines to check for collisions
-        lines = new Line[4];
-        topLine = new Line(x, y, x + 128, y);
-        leftLine = new Line(x, y, x, y + 128);
-        rightLine = new Line(x + 128, y, x + 128, y + 128);
-        bottomLine = new Line(x, y + 90, x + 128, y + 90);
+        lines = new ArrayList(4);
+        topRectangle = new myRectangle(x, y, 100, 1);
+        leftLine = new myLine(x, y-10, x, y + 110);
+        rightLine = new myLine(x + 100, y-10, x + 100, y + 110);
+        bottomRectangle = new myRectangle(x+10, y+55, 80, 10);
 
-        lines[0] = topLine;
-        lines[1] = leftLine;
-        lines[2] = rightLine;
-        lines[3] = bottomLine;
+        lines.add(topRectangle);
+        lines.add(leftLine);
+        lines.add(rightLine);
+        lines.add(bottomRectangle);
     }
 
     public void bottomCollision(Mario mario) throws SlickException{}; //to be overrided
@@ -68,7 +71,7 @@ public class Box {
         this.y = y;
     }
 
-    public Line[] getLines(){
+    public ArrayList getLines(){
         return lines;
     }
 
