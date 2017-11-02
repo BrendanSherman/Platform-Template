@@ -1,4 +1,4 @@
-import java.awt.*;
+import java.awt.Font;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.ArrayList;
@@ -6,10 +6,10 @@ import org.newdawn.slick.*;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.geom.Rectangle;
 
 public class Game extends BasicGame
 {
+    int lives = 3;
     private Box box1;
     private QuestionBox qBox1;
     private Mario mario;
@@ -22,6 +22,8 @@ public class Game extends BasicGame
     private Camera cam = new Camera();
     int groundLevel = 922;
     Box[] collidables = new Box[2];
+    Font font;
+    TrueTypeFont ttf;
 
     public Game(String gamename, int x, int y) throws SlickException {
         super(gamename);
@@ -35,6 +37,8 @@ public class Game extends BasicGame
         qBox1= new QuestionBox(900, 750, "shroom");
         bg = new Image("resources/images/background1Clean.png");
         mario = new Mario(80, groundLevel);
+        font = new Font("Apple Chancery", Font.BOLD, 32);
+        ttf = new TrueTypeFont(font, true);
     }
 
     @Override
@@ -171,10 +175,12 @@ public class Game extends BasicGame
         qBox1.draw();
         qBox1.drawLines();
 
+        ttf.drawString(cam.camX + 10, 30, "Lives: " + lives, Color.red);
+
         mario.Draw(mario.marioDir);
 
         //draws the ground
-        g.setColor(Color.green);
+        g.setColor(new Color(0, 150,0));
         g.fillRect(0, 1050, 10000, 30);
 
 
