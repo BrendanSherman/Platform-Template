@@ -34,7 +34,7 @@ public class Game extends BasicGame
         song.play();
         song.loop();
         box1 = new Box("resources/images/blocks/brickBlock1.png", 500, 952);
-        qBox1= new QuestionBox(900, 750, "shroom");
+        qBox1= new QuestionBox(700, 700, "shroom");
         bg = new Image("resources/images/background1Clean.png");
         mario = new Mario(80, groundLevel);
         font = new Font("Apple Chancery", Font.BOLD, 32);
@@ -199,7 +199,7 @@ public class Game extends BasicGame
 
     public static void main(String[] args) throws SlickException
     {
-        Game g = new Game("Game", 30, 930);
+        Game g = new Game("Super Mario Bros.", 30, 930);
         try // Creates a new AppContainer and sets resolution, update interval, fullscreen status, and target framerate.
         {
             // iniitialize game
@@ -208,6 +208,7 @@ public class Game extends BasicGame
             appgc.setDisplayMode(1920, 1080, false);
             appgc.setMinimumLogicUpdateInterval(5);
             appgc.setMaximumLogicUpdateInterval(5);
+            appgc.setVSync(true);
             appgc.setTargetFrameRate(60);
             appgc.start();
 
