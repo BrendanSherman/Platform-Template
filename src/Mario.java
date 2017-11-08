@@ -1,10 +1,7 @@
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
-import org.newdawn.slick.geom.Line;
-import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
-import org.w3c.dom.css.Rect;
 
 public class Mario {
     private int marioX; //mario coordinates
@@ -20,7 +17,9 @@ public class Mario {
     public int marioLeftStage = 0;
     public int marioRightStage = 0;
     public boolean isJumping = false;
-    SpriteSheet smallMarioSheet = new SpriteSheet("resources/images/smallMarioSheet.png", 128, 128, 8);
+    public SpriteSheet smallMarioSheet = new SpriteSheet("resources/images/smallMarioSheet.png", 128, 128, 8);
+    public SpriteSheet smallLuigiSheet = new SpriteSheet("resources/images/smallLuigiSheet.png", 128, 128, 8);
+    public SpriteSheet marioCurrentSheet = smallMarioSheet;
     boolean feetCollision = false;  //used to check for mario collisions
     boolean headCollision = false;
     boolean leftCollision = false;
@@ -53,23 +52,23 @@ public class Mario {
     // this method, given marioStage, will return the correct mario image.
     public Image getMarioImage(int marioStage) {
         // magic numbers are my magic
-        Image image = smallMarioSheet.getSubImage(4, 0);
+        Image image = marioCurrentSheet.getSubImage(4, 0);
         if (marioState == "walk") {
             if (marioStage == 0) {
-                image = smallMarioSheet.getSubImage(0, 0);
+                image = marioCurrentSheet.getSubImage(0, 0);
             }
             else if (marioStage >= 1 && marioStage <= 10) {
-                image = smallMarioSheet.getSubImage(1, 0);
+                image = marioCurrentSheet.getSubImage(1, 0);
             }
             else if (marioStage >= 1 && marioStage <= 20) {
-                image = smallMarioSheet.getSubImage(2, 0);
+                image = marioCurrentSheet.getSubImage(2, 0);
             }
             else if (marioStage >= 11 && marioStage <= 30) {
-                image = smallMarioSheet.getSubImage(3, 0);
+                image = marioCurrentSheet.getSubImage(3, 0);
             }
         }
         else if (marioState == "jump") {
-            image = smallMarioSheet.getSubImage(5, 0);
+            image = marioCurrentSheet.getSubImage(5, 0);
         }
         else if (marioState == "swim") {
             //todo implement swimming animation

@@ -115,6 +115,15 @@ public class Game extends BasicGame
             mario.marioLeftStage = 0;
             mario.marioRightStage = 0;
         }
+
+        if (input.isKeyDown(Input.KEY_1)) {
+            mario.marioCurrentSheet = mario.smallMarioSheet;
+        }
+
+        if (input.isKeyDown(Input.KEY_2)) {
+            mario.marioCurrentSheet = mario.smallLuigiSheet;
+        }
+
         //update jump animation
         if(jumpStage > 0) {
             if (jumpStage >= 1 && jumpStage < 60) {
