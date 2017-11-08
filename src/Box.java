@@ -40,7 +40,7 @@ public class Box {
         boxImage.draw(x, y);
     }
 
-    public void Animate(){
+    public void Animate(){ //Box animation
         if(moveStage >= 1 && moveStage <= 10) {
             this.y -= 1;
             moveStage++;
