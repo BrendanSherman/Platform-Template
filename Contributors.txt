@@ -1,6 +1,8 @@
 Mr. Code:
-Brendan Sherman
-Art Director and Lead Programmer:
-Nathaniel Jeffries
-QA Lead:
-glickman
+  Brendan Sherman
+Mr. Bug:
+  Aidan Tzur Glickman
+Mr. Art:
+  Nathaniel "Nathan" Jeff
+
+
