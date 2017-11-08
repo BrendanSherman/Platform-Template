@@ -7,9 +7,9 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
-public class Game extends BasicGame
-{
+public class Game extends BasicGame {
     int lives = 3;
+    boolean animationEligible =  true;
     private Box box1;
     private Box box2;
     private Box box3;
@@ -79,7 +79,10 @@ public class Game extends BasicGame
                 if(mario.marioHeadCollision((org.newdawn.slick.geom.Shape)collidables[x].lines.get(j)) && collidables[x].lines.get(j) == collidables[x].bottomRectangle && (jumpStage < 60)){
                     jumpStage = 0;
                     mario.headCollision = true;
-                    collidables[x].moveStage += 1;
+                    if(!((collidables[x].url).equals("resources/images/blocks/emptyQuestionBlock.png")) && animationEligible){
+                        collidables[x].moveStage += 1;
+                        animationEligible = false;
+                    }
                 }
             }
         }
@@ -150,8 +153,9 @@ public class Game extends BasicGame
                 mario.Draw(mario.marioDir);
             }
 
-        if (mario.feetCollision || mario.getMarioY() == groundLevel) {
+        if (mario.feetCollision || mario.getMarioY() >= groundLevel) {
             mario.marioState = "walk";
+            animationEligible = true;
         }
 
         for(int k = 0;k < collidables.length; k++){

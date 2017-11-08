@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 //Box class
 public class Box {
-    private String url;
+    String url = "";
     protected int x;
     protected int y;
     int moveStage = 0;
@@ -18,6 +18,7 @@ public class Box {
     public myLine leftLine;
     public myRectangle bottomRectangle;
     public ArrayList<Collisions> lines;
+    boolean animationEligible;
 
 
 
@@ -40,17 +41,19 @@ public class Box {
         boxImage.draw(x, y);
     }
 
-    public void Animate(){ //Box animation
+    public void Animate() throws SlickException{ //Box animation
+        int oldY = this.y;
         if(moveStage >= 1 && moveStage <= 10) {
-            this.y -= 1;
+            this.y -= 2.0;
             moveStage++;
         }
         else if(moveStage > 10 && moveStage <= 20){
-            this.y+= 1;
+            this.y+= 2.0;
             moveStage++;
         }
-        else if(moveStage == 21){
+        else if(moveStage == 21) {
             moveStage = 0;
+            this.y = oldY;
         }
 
     }

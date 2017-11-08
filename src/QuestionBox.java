@@ -3,6 +3,7 @@ import org.newdawn.slick.SlickException;
 
 public class QuestionBox extends Box{
     private String type = "";
+    boolean used = false;
     String url = "resources/images/blocks/questionMarkBlock1.png";
 
     public QuestionBox(int x, int y, String type) throws SlickException { //takes constructor from box
@@ -19,6 +20,7 @@ public class QuestionBox extends Box{
     public void bottomCollision (Mario mario) throws SlickException{
         if(mario.marioHeadCollision(this.bottomRectangle)){
             this.url = "resources/images/blocks/emptyQuestionBlock.png";
+            used = true;
 
             if(type.equals("shroom")){
                 //TODO spawn shroom
