@@ -34,7 +34,7 @@ public class Game extends BasicGame {
     }
 
     @Override
-    public void init(GameContainer gc) throws SlickException { //Implicity called at the start
+    public void init(GameContainer gc) throws SlickException { //Implicity called at the start.
         song.play();
         box1 = new Box("resources/images/blocks/brickBlock1.png", 500, 952);
         box2 = new Box("resources/images/blocks/brickBlock1.png", 700, 700);
@@ -133,6 +133,15 @@ public class Game extends BasicGame {
             mario.marioLeftStage = 0;
             mario.marioRightStage = 0;
         }
+
+        if (input.isKeyDown(Input.KEY_1)) {
+            mario.marioCurrentSheet = mario.smallMarioSheet;
+        }
+
+        if (input.isKeyDown(Input.KEY_2)) {
+            mario.marioCurrentSheet = mario.smallLuigiSheet;
+        }
+
         //update jump animation
             if (jumpStage >= 1 && jumpStage < 60) {
                 mario.setMarioY(mario.getMarioY() - 6);
