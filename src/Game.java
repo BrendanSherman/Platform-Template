@@ -77,6 +77,10 @@ public class Game extends BasicGame
             mario.setMarioY(mario.getMarioY() + 4);
         }
 
+        if(mario.getMarioY() > groundLevel){
+            mario.setMarioY(groundLevel);
+        }
+
         Input input = gc.getInput();
         // check for inputs
         if (input.isKeyDown(Input.KEY_RIGHT)) {
@@ -116,25 +120,29 @@ public class Game extends BasicGame
             mario.marioRightStage = 0;
         }
         //update jump animation
-        if(jumpStage > 0) {
             if (jumpStage >= 1 && jumpStage < 60) {
-                mario.setMarioY(mario.getMarioY() - 4);
+                System.out.println("jumping");
+                System.out.println(jumpStage);
+                mario.setMarioY(mario.getMarioY() - 6);
                 mario.Draw(mario.marioDir);
                 jumpStage++;
                 mario.marioState = "jump";
             } else if (jumpStage >= 60 && jumpStage < 120) {
-                mario.setMarioY(mario.getMarioY() + 4);
+                mario.setMarioY(mario.getMarioY() + 6);
                 mario.Draw(mario.marioDir);
+                System.out.println(jumpStage);
                 jumpStage++;
+                mario.marioState = "jump";
 
             }
-            if (jumpStage  == 120) {
-                mario.marioState = "jump";
+            if (jumpStage  >= 120) {
+                System.out.println(jumpStage);
+                System.out.println("jump ended");
+                mario.marioState = "walk";
                 jumpStage = 0;
-                mario.setMarioY(mario.getMarioY() - 4);
+                mario.setMarioY(mario.getMarioY() - 6);
                 mario.Draw(mario.marioDir);
             }
-        }
 
         if (mario.feetCollision || mario.getMarioY() == groundLevel) {
             mario.marioState = "walk";
