@@ -158,7 +158,7 @@ public class Game extends BasicGame {
             animationEligible = true;
         }
 
-        for(int k = 0;k < collidables.length; k++){
+        for(int k = 0;k < collidables.length; k++){ //calls animate for boxes
             collidables[k].Animate();
         }
 
