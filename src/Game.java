@@ -11,6 +11,10 @@ public class Game extends BasicGame
 {
     int lives = 3;
     private Box box1;
+    private Box box2;
+    private Box box3;
+    private Box box4;
+    private Box box5;
     private QuestionBox qBox1;
     private Mario mario;
     private Image bg;
@@ -21,7 +25,7 @@ public class Game extends BasicGame
     private Image e;
     private Camera cam = new Camera();
     int groundLevel = 922;
-    Box[] collidables = new Box[2];
+    Box[] collidables = new Box[6];
     Font font;
     TrueTypeFont ttf;
 
@@ -32,9 +36,12 @@ public class Game extends BasicGame
     @Override
     public void init(GameContainer gc) throws SlickException { //Implicity called at the start
         song.play();
-        song.loop();
         box1 = new Box("resources/images/blocks/brickBlock1.png", 500, 952);
-        qBox1= new QuestionBox(700, 700, "shroom");
+        box2 = new Box("resources/images/blocks/brickBlock1.png", 700, 700);
+        box3 = new Box("resources/images/blocks/brickBlock1.png", 800, 700);
+        qBox1= new QuestionBox(900, 700, "shroom");
+        box4 = new Box("resources/images/blocks/brickBlock1.png", 1000, 700);
+        box5 = new Box("resources/images/blocks/brickBlock1.png", 1100, 700);
         bg = new Image("resources/images/background1Clean.png");
         mario = new Mario(80, groundLevel);
         font = new Font("Apple Chancery", Font.BOLD, 32);
@@ -43,9 +50,12 @@ public class Game extends BasicGame
 
     @Override
     public void update(GameContainer gc, int i) throws SlickException {
-
         collidables[0] = box1;
         collidables[1] = qBox1;
+        collidables[2] = box2;
+        collidables[3] = box3;
+        collidables[4] = box4;
+        collidables[5] = box5;
 
         for(int x = 0; x < collidables.length; x++){
             if(collidables[x] instanceof QuestionBox && jumpStage < 60){
@@ -69,6 +79,7 @@ public class Game extends BasicGame
                 if(mario.marioHeadCollision((org.newdawn.slick.geom.Shape)collidables[x].lines.get(j)) && collidables[x].lines.get(j) == collidables[x].bottomRectangle && (jumpStage < 60)){
                     jumpStage = 0;
                     mario.headCollision = true;
+                    collidables[x].moveStage += 1;
                 }
             }
         }
@@ -77,7 +88,7 @@ public class Game extends BasicGame
             mario.setMarioY(mario.getMarioY() + 4);
         }
 
-        if(mario.getMarioY() > groundLevel){
+        if(mario.getMarioY() > groundLevel){ //Reverse gravity
             mario.setMarioY(groundLevel);
         }
 
@@ -112,7 +123,7 @@ public class Game extends BasicGame
             mario.marioRightStage = 0;
         }
 
-        if (input.isKeyDown(Input.KEY_SPACE) && (mario.getMarioY() == 922 || mario.feetCollision)){
+        if (input.isKeyDown(Input.KEY_UP) && (mario.getMarioY() == 922 || mario.feetCollision)){
             jumpStage++;
             jumpSound.play();
             mario.marioState = "jump";
@@ -121,8 +132,6 @@ public class Game extends BasicGame
         }
         //update jump animation
             if (jumpStage >= 1 && jumpStage < 60) {
-                System.out.println("jumping");
-                System.out.println(jumpStage);
                 mario.setMarioY(mario.getMarioY() - 6);
                 mario.Draw(mario.marioDir);
                 jumpStage++;
@@ -130,14 +139,11 @@ public class Game extends BasicGame
             } else if (jumpStage >= 60 && jumpStage < 120) {
                 mario.setMarioY(mario.getMarioY() + 6);
                 mario.Draw(mario.marioDir);
-                System.out.println(jumpStage);
                 jumpStage++;
                 mario.marioState = "jump";
 
             }
             if (jumpStage  >= 120) {
-                System.out.println(jumpStage);
-                System.out.println("jump ended");
                 mario.marioState = "walk";
                 jumpStage = 0;
                 mario.setMarioY(mario.getMarioY() - 6);
@@ -146,6 +152,10 @@ public class Game extends BasicGame
 
         if (mario.feetCollision || mario.getMarioY() == groundLevel) {
             mario.marioState = "walk";
+        }
+
+        for(int k = 0;k < collidables.length; k++){
+            collidables[k].Animate();
         }
 
         //update camera x and y
@@ -177,11 +187,13 @@ public class Game extends BasicGame
             bg.draw(i, 0);
         }
 
-        box1.draw();
-        box1.drawLines();
+       for(int i = 0; i < collidables.length; i++){
+            if(collidables[i] instanceof Box)
+                collidables[i].draw();
+            else if(collidables[i] instanceof Box)
+                collidables[i].draw();
+       }
 
-        qBox1.draw();
-        qBox1.drawLines();
 
         ttf.drawString(cam.camX + 10, 30, "Lives: " + lives, Color.red);
 

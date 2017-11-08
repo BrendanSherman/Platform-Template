@@ -12,6 +12,7 @@ public class Box {
     private String url;
     protected int x;
     protected int y;
+    int moveStage = 0;
     public myRectangle topRectangle;
     public myLine rightLine;
     public myLine leftLine;
@@ -39,6 +40,20 @@ public class Box {
         boxImage.draw(x, y);
     }
 
+    public void Animate(){
+        if(moveStage >= 1 && moveStage <= 10) {
+            this.y -= 1;
+            moveStage++;
+        }
+        else if(moveStage > 10 && moveStage <= 20){
+            this.y+= 1;
+            moveStage++;
+        }
+        else if(moveStage == 21){
+            moveStage = 0;
+        }
+
+    }
     public void drawLines() throws SlickException { //draws lines to check for collisions
         lines = new ArrayList(4);
         topRectangle = new myRectangle(x, y, 100, 4);
@@ -52,7 +67,8 @@ public class Box {
         lines.add(bottomRectangle);
     }
 
-    public void bottomCollision(Mario mario) throws SlickException{}; //to be overrided
+    public void bottomCollision(Mario mario) throws SlickException{
+    }; //to be overrided
 
     
     public int getX() {
@@ -69,6 +85,10 @@ public class Box {
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    public int getMoveStage(){
+        return moveStage;
     }
 
     public ArrayList getLines(){
