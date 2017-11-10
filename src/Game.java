@@ -133,6 +133,7 @@ public class Game extends BasicGame {
             mario.marioLeftStage = 0;
             mario.marioRightStage = 0;
         }
+        else
 
         if (input.isKeyDown(Input.KEY_1)) {
             mario.marioCurrentSheet = mario.smallMarioSheet;
