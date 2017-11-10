@@ -18,10 +18,11 @@ public class Game extends BasicGame {
     private QuestionBox qBox1;
     private Mario mario;
     private Image bg;
-    private Music song = new Music("resources/music/song1.ogg");
+    private Music song = new Music("resources/sounds/stage1.ogg");
+    private Sound jumpSound = new Sound("resources/sounds/smb_jump-small.wav");
+    private Sound bumpSound = new Sound("resources/sounds/smb_bump.wav");
     int jumpStage = 0;
     private int animationStage = 0;
-    private Sound jumpSound = new Sound("resources/music/smb_jump-small.wav");
     private Image e;
     private Camera cam = new Camera();
     int groundLevel = 922;
@@ -35,7 +36,8 @@ public class Game extends BasicGame {
 
     @Override
     public void init(GameContainer gc) throws SlickException { //Implicity called at the start.
-        song.play();
+        song.play(0, 0.01f);
+        song.loop();
         box1 = new Box("resources/images/blocks/brickBlock1.png", 500, 952);
         box2 = new Box("resources/images/blocks/brickBlock1.png", 700, 700);
         box3 = new Box("resources/images/blocks/brickBlock1.png", 800, 700);
@@ -80,6 +82,7 @@ public class Game extends BasicGame {
                     jumpStage = 0;
                     mario.headCollision = true;
                     if(!((collidables[x].url).equals("resources/images/blocks/emptyQuestionBlock.png")) && animationEligible){
+                        bumpSound.play();
                         collidables[x].moveStage += 1;
                         animationEligible = false;
                     }
@@ -126,7 +129,8 @@ public class Game extends BasicGame {
             mario.marioRightStage = 0;
         }
 
-        if (input.isKeyDown(Input.KEY_UP) && (mario.getMarioY() == 922 || mario.feetCollision)){
+        if (input.isKeyPressed(Input.KEY_UP) && (mario.getMarioY() == 922 || mario.feetCollision)){
+            jumpStage = 0;
             jumpStage++;
             jumpSound.play();
             mario.marioState = "jump";
@@ -217,17 +221,6 @@ public class Game extends BasicGame {
         g.fillRect(0, 1050, 10000, 30);
 
 
-    }
-
-    public Animation getAnimation (Image i, int SpritesX, int SpritesY, int spriteWidth, int SpriteHeight, int frames, int duration, int SpriteSpacing) {
-        Animation a = new Animation(false);
-
-        for(int y = 0; y < SpritesY; y++) {
-            for (int x = 0; x < SpritesX; x++) {
-                a.addFrame(i.getSubImage(x * spriteWidth + x * SpriteSpacing, y *SpriteHeight, spriteWidth, SpriteHeight), duration);
-            }
-        }
-        return a;
     }
 
     public static void main(String[] args) throws SlickException
