@@ -10,6 +10,7 @@ import org.newdawn.slick.Image;
 public class Game extends BasicGame {
     int lives = 3;
     boolean animationEligible =  true;
+    private Mushroom m = null;
     private Box box1;
     private Box box2;
     private Box box3;
@@ -22,6 +23,7 @@ public class Game extends BasicGame {
     private Music song = new Music("resources/sounds/stage1.ogg");
     private Sound jumpSound = new Sound("resources/sounds/smb_jump-small.wav");
     private Sound bumpSound = new Sound("resources/sounds/smb_bump.wav");
+    private Sound itemSpawn = new Sound("resources/sounds/smb_powerup_appears.wav");
     int jumpStage = 0;
     private Camera cam = new Camera();
     int groundLevel = 922;
@@ -35,12 +37,11 @@ public class Game extends BasicGame {
 
     @Override
     public void init(GameContainer gc) throws SlickException { //Implicity called at the start.
-        song.play(0, 0.01f);
-        song.loop();
+        song.loop(1, 0.3f);
         box1 = new Box("resources/images/blocks/brickBlock1.png", 500, 952);
         box2 = new Box("resources/images/blocks/brickBlock1.png", 700, 700);
         box3 = new Box("resources/images/blocks/brickBlock1.png", 800, 700);
-        qBox1= new QuestionBox(900, 700, "shroom");
+        qBox1= new QuestionBox(900, 700, "mushroom");
         box4 = new Box("resources/images/blocks/brickBlock1.png", 1000, 700);
         box5 = new Box("resources/images/blocks/brickBlock1.png", 1100, 700);
         pipe1 = new Pipe(1400, 796);
@@ -61,9 +62,6 @@ public class Game extends BasicGame {
         collidables[6] = pipe1;
 
         for(int x = 0; x < collidables.length; x++){
-            if(collidables[x] instanceof QuestionBox && jumpStage < 60){
-                collidables[x].bottomCollision(mario);
-            }
             //checks for collisions with all entities in the level dab
             for(int j = 0; j< collidables[x].getLines().size(); j++){
                 if(mario.marioRightCollison((org.newdawn.slick.geom.Shape) collidables[x].lines.get(j)) && collidables[x].lines.get(j) == collidables[x].leftLine){
@@ -82,12 +80,26 @@ public class Game extends BasicGame {
                 if(mario.marioHeadCollision((org.newdawn.slick.geom.Shape)collidables[x].lines.get(j)) && collidables[x].lines.get(j) == collidables[x].bottomRectangle && (jumpStage < 60)){
                     jumpStage = 0;
                     mario.headCollision = true;
-                    if(!((collidables[x].url).equals("resources/images/blocks/emptyQuestionBlock.png")) && animationEligible
-                            && mario.getMarioX() < collidables[x].x + 70){ //checks for "bump" eligibility
+                    if( collidables[x].used == false && animationEligible && mario.getMarioX() < collidables[x].x + 70){ //checks for "bump" eligibility
                         bumpSound.play();
                         collidables[x].moveStage += 1;
                         animationEligible = false;
                     }
+
+
+                    if(collidables[x] instanceof QuestionBox && !(collidables[x].used)){
+                        if(collidables[x].type.equals("mushroom")) { //sets up a mushroom
+                            itemSpawn.play();
+                            m = new Mushroom(collidables[x]);
+                            m.drawRect();
+                            m.drawLines();
+                        }
+                    }
+
+                    if(collidables[x] instanceof QuestionBox){
+                        collidables[x].bottomCollision(mario);
+                    }
+
                 }
             }
         }
@@ -220,6 +232,10 @@ public class Game extends BasicGame {
         g.setColor(new Color(0, 150,0));
         g.fillRect(0, 1050, 10000, 30);
 
+
+        if(m != null) {
+            m.draw();
+        }
 
     }
 

@@ -9,6 +9,8 @@ import java.util.ArrayList;
 
 //Box class
 public class Box {
+    boolean used;
+    String type = "";
     String url = "";
     protected int x;
     protected int y;

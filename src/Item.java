@@ -18,13 +18,9 @@ public abstract class Item {
 
     }
 
-    public void drawRect(){
-        itemRectangle = new Rectangle(box.getX(), box.getY(), 100, 100);
-    }
+    public void drawRect(){}
 
-    public void movement(){
-
-    }
+    public void movement(){}
 
 
 
