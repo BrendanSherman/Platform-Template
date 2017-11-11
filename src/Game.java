@@ -10,7 +10,10 @@ import org.newdawn.slick.Image;
 public class Game extends BasicGame {
     int lives = 3;
     boolean animationEligible =  true;
-    private Mushroom m = null;
+    ArrayList<Item> items = new ArrayList();
+    private Mushroom m;
+    //private Flower f;
+    //private Star s;
     private Box box1;
     private Box box2;
     private Box box3;
@@ -24,6 +27,7 @@ public class Game extends BasicGame {
     private Sound jumpSound = new Sound("resources/sounds/smb_jump-small.wav");
     private Sound bumpSound = new Sound("resources/sounds/smb_bump.wav");
     private Sound itemSpawn = new Sound("resources/sounds/smb_powerup_appears.wav");
+    private Sound powerUp = new Sound("resources/sounds/smb_powerup.wav");
     int jumpStage = 0;
     private Camera cam = new Camera();
     int groundLevel = 922;
@@ -87,12 +91,12 @@ public class Game extends BasicGame {
                     }
 
 
-                    if(collidables[x] instanceof QuestionBox && !(collidables[x].used)){
+                    if(collidables[x] instanceof QuestionBox && !(collidables[x].used)){ //If mario hits an open qbox
                         if(collidables[x].type.equals("mushroom")) { //sets up a mushroom
                             itemSpawn.play();
                             m = new Mushroom(collidables[x]);
                             m.drawRect();
-                            m.drawLines();
+                            items.add(m);
                         }
                     }
 
@@ -101,6 +105,44 @@ public class Game extends BasicGame {
                     }
 
                 }
+            }
+        }
+
+        for(i = 0; i < items.size(); i++){
+            for(int l = 0; l < collidables.length; l++){
+                if((items.get(i).itemRectangle.intersects(collidables[l].topRectangle))){
+                    items.get(i).bottomCollision = true;
+                }
+                if(items.get(i).narrowItemRectangle.intersects(collidables[l].leftLine) || items.get(i).narrowItemRectangle.intersects(collidables[l].rightLine)){
+                    if(items.get(i).dir.equals("right")) { //Switch directions on collision, stuck proof
+                        items.get(i).dir = ("left");
+                        items.get(i).x-=3;
+                    }
+                    else if(items.get(i).dir.equals("left")) {
+                        items.get(i).dir = ("right");
+                        items.get(i).x+=3;
+                    }
+                }
+            }
+
+            if(!(items.get(i).bottomCollision) && items.get(i).y < groundLevel+35)
+                items.get(i).fall();
+            items.get(i).move();
+
+
+            items.get(i).bottomCollision = false;
+
+            if(mario.marioRightCollison(items.get(i).itemRectangle)){
+                items.get(i).collision();
+
+                if(items.get(i) instanceof Mushroom) {
+                    m = null;
+                    //TODO MAKE MARIO BIG
+                }
+                //else if(items.get(i) instanceof Flower)
+                //else if(items.get(i) instance of Star)
+                items.remove(i);
+                powerUp.play();
             }
         }
 

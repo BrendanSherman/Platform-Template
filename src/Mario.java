@@ -25,12 +25,8 @@ public class Mario {
     boolean leftCollision = false;
     boolean rightCollision = false;
     public String marioDir; //checks for mario's direction for animation
-    SpriteSheet smallMarioSheetMovement2 = new SpriteSheet("resources/images/smallMarioSheetMovement2.png", 120, 128, 8);
-    private int imageState = 0;
 
     public Mario(int x, int y) throws SlickException{ //sets variables
-        this.marioRight = marioRight;
-        this.marioLeft = marioLeft;
         this.marioX = x;
         this.marioY = y;
         marioDir = "right";
