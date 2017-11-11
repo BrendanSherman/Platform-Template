@@ -16,17 +16,16 @@ public class Game extends BasicGame {
     private Box box4;
     private Box box5;
     private QuestionBox qBox1;
+    private Pipe pipe1;
     private Mario mario;
     private Image bg;
     private Music song = new Music("resources/sounds/stage1.ogg");
     private Sound jumpSound = new Sound("resources/sounds/smb_jump-small.wav");
     private Sound bumpSound = new Sound("resources/sounds/smb_bump.wav");
     int jumpStage = 0;
-    private int animationStage = 0;
-    private Image e;
     private Camera cam = new Camera();
     int groundLevel = 922;
-    Box[] collidables = new Box[6];
+    Box[] collidables = new Box[7];
     Font font;
     TrueTypeFont ttf;
 
@@ -44,6 +43,7 @@ public class Game extends BasicGame {
         qBox1= new QuestionBox(900, 700, "shroom");
         box4 = new Box("resources/images/blocks/brickBlock1.png", 1000, 700);
         box5 = new Box("resources/images/blocks/brickBlock1.png", 1100, 700);
+        pipe1 = new Pipe(1400, 796);
         bg = new Image("resources/images/background1Clean.png");
         mario = new Mario(80, groundLevel);
         font = new Font("Apple Chancery", Font.BOLD, 32);
@@ -58,6 +58,7 @@ public class Game extends BasicGame {
         collidables[3] = box3;
         collidables[4] = box4;
         collidables[5] = box5;
+        collidables[6] = pipe1;
 
         for(int x = 0; x < collidables.length; x++){
             if(collidables[x] instanceof QuestionBox && jumpStage < 60){
@@ -81,7 +82,8 @@ public class Game extends BasicGame {
                 if(mario.marioHeadCollision((org.newdawn.slick.geom.Shape)collidables[x].lines.get(j)) && collidables[x].lines.get(j) == collidables[x].bottomRectangle && (jumpStage < 60)){
                     jumpStage = 0;
                     mario.headCollision = true;
-                    if(!((collidables[x].url).equals("resources/images/blocks/emptyQuestionBlock.png")) && animationEligible){
+                    if(!((collidables[x].url).equals("resources/images/blocks/emptyQuestionBlock.png")) && animationEligible
+                            && mario.getMarioX() < collidables[x].x + 70){ //checks for "bump" eligibility
                         bumpSound.play();
                         collidables[x].moveStage += 1;
                         animationEligible = false;
@@ -208,10 +210,7 @@ public class Game extends BasicGame {
        for(int i = 0; i < collidables.length; i++){
             if(collidables[i] instanceof Box)
                 collidables[i].draw();
-            else if(collidables[i] instanceof Box)
-                collidables[i].draw();
        }
-
 
         ttf.drawString(cam.camX + 10, 30, "Lives: " + lives, Color.red);
 
@@ -229,7 +228,6 @@ public class Game extends BasicGame {
         Game g = new Game("Super Mario Bros.", 30, 930);
         try // Creates a new AppContainer and sets resolution, update interval, fullscreen status, and target framerate.
         {
-            // iniitialize game
             AppGameContainer appgc;
             appgc = new AppGameContainer(g);
             appgc.setDisplayMode(1920, 1080, false);

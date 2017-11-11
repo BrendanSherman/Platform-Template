@@ -8,6 +8,7 @@ public class QuestionBox extends Box{
 
     public QuestionBox(int x, int y, String type) throws SlickException { //takes constructor from box
         super(x,y);
+        this.type = type;
     }
 
     @Override
