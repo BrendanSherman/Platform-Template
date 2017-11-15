@@ -61,10 +61,10 @@ public class Box {
     }
     public void drawLines() throws SlickException { //draws lines to check for collisions
         lines = new ArrayList(4);
-        topRectangle = new myRectangle(x, y, 100, 4);
+        topRectangle = new myRectangle(x+10, y, 80, 0);
         leftLine = new myLine(x, y-10, x, y + 110);
         rightLine = new myLine(x + 100, y-10, x + 100, y + 110);
-        bottomRectangle = new myRectangle(x+10, y+55, 80, 10);
+        bottomRectangle = new myRectangle(x+30, y+99, 40, 1);
 
         lines.add(topRectangle);
         lines.add(leftLine);
