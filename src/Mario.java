@@ -19,12 +19,19 @@ public class Mario {
     public boolean isJumping = false;
     public SpriteSheet smallMarioSheet = new SpriteSheet("resources/images/smallMarioSheet.png", 128, 128, 8);
     public SpriteSheet smallLuigiSheet = new SpriteSheet("resources/images/smallLuigiSheet.png", 128, 128, 8);
+    public SpriteSheet bigMarioSheet = new SpriteSheet("resources/images/bigMarioSheet.png", 128, 256, 8);
+    public SpriteSheet bigLuigiSheet = new SpriteSheet("resources/images/bigLuigiSheet.png", 128, 256, 8);
     public SpriteSheet marioCurrentSheet = smallMarioSheet;
     boolean feetCollision = false;  //used to check for mario collisions
     boolean headCollision = false;
     boolean leftCollision = false;
     boolean rightCollision = false;
+    boolean isBig = false;
     public String marioDir; //checks for mario's direction for animation
+    boolean isGettingBig = false;
+    int gettingBigStage = 0;
+    String currentChar = "mario";
+
 
     public Mario(int x, int y) throws SlickException{ //sets variables
         this.marioX = x;
@@ -45,10 +52,53 @@ public class Mario {
         marioLeftRectangle = new myRectangle(marioX + 32, marioY + 32, 16, 60); //sets left hitbox
         marioHeadRectangle = new myRectangle(marioX + 16, marioY, 96, 8);
     }
+
+    public void updateSheet() {
+        // find current sheet (big, small, mario or luigi
+        if (currentChar.equals("mario")) {
+            if (isBig) {
+                marioCurrentSheet = bigMarioSheet;
+                System.out.println("mario is big.");
+            }
+            else {
+                marioCurrentSheet = smallMarioSheet;
+            }
+        }
+
+        else if (currentChar.equals("luigi")) {
+            if (isBig) {
+                marioCurrentSheet = bigLuigiSheet;
+            }
+            else {
+                marioCurrentSheet = smallLuigiSheet;
+            }
+        }
+    }
     // this method, given marioStage, will return the correct mario image.
     public Image getMarioImage(int marioStage) {
         // magic numbers are my magic
+
+        // default image (the changing direction image) its weird looking so i know if stuff broke.
         Image image = marioCurrentSheet.getSubImage(4, 0);
+
+//        if (gettingBigStage >= 1) {
+//            System.out.println("loop entered.");
+//            // flips his current size every frame, 5 times total
+//            if (isBig) {
+//                isBig = false;
+//                updateSheet();
+//            }
+//            else {
+//                isBig = true;
+//                updateSheet();
+//            }
+//            gettingBigStage++;
+//        }
+//
+//        if (gettingBigStage == 5) {
+//            gettingBigStage = 0;
+//        }
+
         if (marioState == "walk") {
             if (marioStage == 0) {
                 image = marioCurrentSheet.getSubImage(0, 0);
@@ -63,13 +113,21 @@ public class Mario {
                 image = marioCurrentSheet.getSubImage(3, 0);
             }
         }
+
         else if (marioState == "jump") {
             image = marioCurrentSheet.getSubImage(5, 0);
         }
+
         else if (marioState == "swim") {
-            //todo implement swimming animation
+            //todo implement swimming animation (lmao)
         }
+
         return image;
+    }
+
+    public void getBig() {
+        isBig = true;
+        updateSheet();
     }
 
     public boolean marioFeetCollison(Shape s){   //checks for feet collision

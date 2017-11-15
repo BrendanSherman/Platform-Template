@@ -30,7 +30,7 @@ public class Game extends BasicGame {
     private Sound powerUp = new Sound("resources/sounds/smb_powerup.wav");
     int jumpStage = 0;
     private Camera cam = new Camera();
-    int groundLevel = 922;
+    public int groundLevel = 922;
     Box[] collidables = new Box[7];
     Font font;
     TrueTypeFont ttf;
@@ -137,7 +137,8 @@ public class Game extends BasicGame {
 
                 if(items.get(i) instanceof Mushroom) {
                     m = null;
-                    //TODO MAKE MARIO BIG
+                    mario.getBig();
+                    groundLevel = 794;
                 }
                 //else if(items.get(i) instanceof Flower)
                 //else if(items.get(i) instance of Star)
@@ -196,11 +197,13 @@ public class Game extends BasicGame {
         else
 
         if (input.isKeyDown(Input.KEY_1)) {
-            mario.marioCurrentSheet = mario.smallMarioSheet;
+            mario.currentChar = "mario";
+            mario.updateSheet();
         }
 
         if (input.isKeyDown(Input.KEY_2)) {
-            mario.marioCurrentSheet = mario.smallLuigiSheet;
+            mario.currentChar = "luigi";
+            mario.updateSheet();
         }
 
         //update jump animation
