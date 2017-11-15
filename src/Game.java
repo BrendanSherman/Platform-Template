@@ -151,7 +151,7 @@ public class Game extends BasicGame {
             mario.setMarioY(mario.getMarioY() + 4);
         }
 
-        if(mario.getMarioY() > groundLevel){ //Reverse gravity
+        if(mario.getMarioY() > groundLevel){ //Reverse gravity.
             mario.setMarioY(groundLevel);
         }
 
