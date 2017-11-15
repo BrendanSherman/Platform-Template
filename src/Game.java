@@ -19,6 +19,7 @@ public class Game extends BasicGame {
     private Box box3;
     private Box box4;
     private Box box5;
+    private Box box6;
     private QuestionBox qBox1;
     private Pipe pipe1;
     private Mario mario;
@@ -31,7 +32,7 @@ public class Game extends BasicGame {
     int jumpStage = 0;
     private Camera cam = new Camera();
     public int groundLevel = 922;
-    Box[] collidables = new Box[7];
+    Box[] collidables = new Box[8];
     Font font;
     TrueTypeFont ttf;
 
@@ -49,6 +50,7 @@ public class Game extends BasicGame {
         box4 = new Box("resources/images/blocks/brickBlock1.png", 1000, 700);
         box5 = new Box("resources/images/blocks/brickBlock1.png", 1100, 700);
         pipe1 = new Pipe(1400, 796);
+        box6 = new Box("resources/images/blocks/brickBlock1.png", 1800, 500);
         bg = new Image("resources/images/background1Clean.png");
         mario = new Mario(80, groundLevel);
         font = new Font("Apple Chancery", Font.BOLD, 32);
@@ -64,6 +66,7 @@ public class Game extends BasicGame {
         collidables[4] = box4;
         collidables[5] = box5;
         collidables[6] = pipe1;
+        collidables[7] = box6;
 
         for(int x = 0; x < collidables.length; x++){
             //checks for collisions with all entities in the level dab
@@ -149,6 +152,8 @@ public class Game extends BasicGame {
 
         if (mario.getMarioY() < groundLevel && jumpStage == 0){ //gravity
             mario.setMarioY(mario.getMarioY() + 4);
+            if(mario.marioState.equals("jump"))
+                mario.marioState="jump";
         }
 
         if(mario.getMarioY() > groundLevel){ //Reverse gravity.
@@ -220,7 +225,6 @@ public class Game extends BasicGame {
 
             }
             if (jumpStage  >= 120) {
-                mario.marioState = "walk";
                 jumpStage = 0;
                 mario.setMarioY(mario.getMarioY() - 6);
                 mario.Draw(mario.marioDir);
@@ -269,9 +273,12 @@ public class Game extends BasicGame {
                 collidables[i].draw();
        }
 
-        ttf.drawString(cam.camX + 10, 30, "Lives: " + lives, Color.red);
+       Goomba gomb = new Goomba(300,groundLevel+28);
+       gomb.draw();
 
-        mario.Draw(mario.marioDir);
+       ttf.drawString(cam.camX + 10, 30, "Lives: " + lives, Color.red);
+
+       mario.Draw(mario.marioDir);
 
         //draws the ground
         g.setColor(new Color(0, 150,0));
