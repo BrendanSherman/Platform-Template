@@ -2,6 +2,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
 abstract class Enemy{
+    String dir = "right";
     int x;
     int y;
     public Enemy(int x, int y) throws SlickException{

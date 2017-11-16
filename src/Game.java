@@ -3,14 +3,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.ArrayList;
 import org.newdawn.slick.*;
-import org.newdawn.slick.Color;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
+import org.newdawn.slick.geom.Rectangle;
 
 public class Game extends BasicGame {
     int lives = 3;
     boolean animationEligible =  true;
     ArrayList<Item> items = new ArrayList();
+    ArrayList<Enemy> enemies = new ArrayList();
     private Mushroom m;
     //private Flower f;
     //private Star s;
@@ -35,6 +34,7 @@ public class Game extends BasicGame {
     Box[] collidables = new Box[8];
     Font font;
     TrueTypeFont ttf;
+    Rectangle ground = new Rectangle(0, 1050, 10000, 30);
 
     public Game(String gamename, int x, int y) throws SlickException {
         super(gamename);
@@ -87,7 +87,7 @@ public class Game extends BasicGame {
                 if(mario.marioHeadCollision((org.newdawn.slick.geom.Shape)collidables[x].lines.get(j)) && collidables[x].lines.get(j) == collidables[x].bottomRectangle && (jumpStage < 60)){
                     jumpStage = 0;
                     mario.headCollision = true;
-                    if( collidables[x].used == false && animationEligible && mario.getMarioX() < collidables[x].x + 70){ //checks for "bump" eligibility
+                    if( collidables[x].used == false && animationEligible && mario.getMarioX() < collidables[x].x + 70 && !mario.isBig){ //checks for "bump" eligibility
                         bumpSound.play();
                         collidables[x].moveStage += 1;
                         animationEligible = false;
@@ -150,7 +150,8 @@ public class Game extends BasicGame {
             }
         }
 
-        if (mario.getMarioY() < groundLevel && jumpStage == 0){ //gravity
+        if (!mario.feetCollision && jumpStage == 0){ //gravity
+            System.out.println(mario.feetCollision);
             mario.setMarioY(mario.getMarioY() + 4);
             if(mario.marioState.equals("jump"))
                 mario.marioState="jump";

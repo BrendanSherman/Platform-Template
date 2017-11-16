@@ -64,7 +64,7 @@ public class Box {
         topRectangle = new myRectangle(x+10, y, 80, 0);
         leftLine = new myLine(x, y-10, x, y + 110);
         rightLine = new myLine(x + 100, y-10, x + 100, y + 110);
-        bottomRectangle = new myRectangle(x+30, y+99, 40, 1);
+        bottomRectangle = new myRectangle(x, y+99, 70, 1);
 
         lines.add(topRectangle);
         lines.add(leftLine);

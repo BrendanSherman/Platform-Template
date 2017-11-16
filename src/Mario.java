@@ -81,24 +81,25 @@ public class Mario {
 
         // default image (the changing direction image) its weird looking so i know if stuff broke.
         Image image = marioCurrentSheet.getSubImage(4, 0);
+        /*
+        if (gettingBigStage >= 1) {
+            System.out.println("loop entered.");
+            // flips his current size every frame, 5 times total
+            if (isBig) {
+                isBig = false;
+                updateSheet();
+            }
+            else {
+                isBig = true;
+                updateSheet();
+            }
+            gettingBigStage++;
+        }
 
-//        if (gettingBigStage >= 1) {
-//            System.out.println("loop entered.");
-//            // flips his current size every frame, 5 times total
-//            if (isBig) {
-//                isBig = false;
-//                updateSheet();
-//            }
-//            else {
-//                isBig = true;
-//                updateSheet();
-//            }
-//            gettingBigStage++;
-//        }
-//
-//        if (gettingBigStage == 5) {
-//            gettingBigStage = 0;
-//        }
+        if (gettingBigStage == 5) {
+            gettingBigStage = 0;
+        }
+        */
 
         if (marioState == "walk") {
             if (marioStage == 0) {
@@ -127,7 +128,7 @@ public class Mario {
     }
 
     public void getBig() {
-        isBig = true;
+        this.isBig = true;
         updateSheet();
     }
 
