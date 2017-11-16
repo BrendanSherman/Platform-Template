@@ -150,7 +150,7 @@ public class Game extends BasicGame {
             }
         }
 
-        if (!mario.feetCollision && jumpStage == 0){ //gravity
+        if (mario.getMarioY() < groundLevel && jumpStage == 0){ //gravity
             System.out.println(mario.feetCollision);
             mario.setMarioY(mario.getMarioY() + 4);
             if(mario.marioState.equals("jump"))
