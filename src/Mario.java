@@ -10,7 +10,7 @@ public class Mario {
     private myRectangle marioFeetRectangle;  //mario hitboxes
     private myRectangle marioRightRectangle;
     private myRectangle marioLeftRectangle;
-    private myRectangle marioHeadRectangle;
+    myRectangle marioHeadRectangle;
     private Image marioRight;
     private Image marioLeft;
     private Image marioImage;
@@ -48,10 +48,20 @@ public class Mario {
             marioImage = getMarioImage(marioLeftStage).getFlippedCopy(true, false);
         }
         marioImage.draw(marioX, marioY);
-        marioFeetRectangle = new myRectangle(marioX + 16, marioY + 118, 96, 10); //sets bottom hitbox
-        marioRightRectangle = new myRectangle(marioX + 75, marioY + 32, 13, 60); //sets right hitbox
-        marioLeftRectangle = new myRectangle(marioX + 32, marioY + 32, 16, 60); //sets left hitbox
-        marioHeadRectangle = new myRectangle(marioX + 16, marioY, 96, 8);
+    }
+    public void drawLines(){
+        if(isBig){
+            marioFeetRectangle = new myRectangle(marioX + 16, marioY + 246, 96, 10); //sets bottom hitbox
+            marioRightRectangle = new myRectangle(marioX + 75, marioY + 32, 13, 192); //sets right hitbox
+            marioLeftRectangle = new myRectangle(marioX + 32, marioY + 32, 16, 192); //sets left hitbox
+            marioHeadRectangle = new myRectangle(marioX + 16, marioY, 96, 8);
+        }
+        else {
+            marioFeetRectangle = new myRectangle(marioX + 16, marioY + 118, 96, 10); //sets bottom hitbox
+            marioRightRectangle = new myRectangle(marioX + 75, marioY + 32, 13, 60); //sets right hitbox
+            marioLeftRectangle = new myRectangle(marioX + 32, marioY + 32, 16, 60); //sets left hitbox
+            marioHeadRectangle = new myRectangle(marioX + 16, marioY, 96, 8);
+        }
     }
 
     public void updateSheet() {
@@ -59,7 +69,6 @@ public class Mario {
         if (currentChar.equals("mario")) {
             if (isBig) {
                 marioCurrentSheet = bigMarioSheet;
-                System.out.println("mario is big.");
             }
             else {
                 marioCurrentSheet = smallMarioSheet;

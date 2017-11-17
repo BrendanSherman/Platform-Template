@@ -31,6 +31,7 @@ public class Game extends BasicGame {
     int jumpStage = 0;
     private Camera cam = new Camera();
     public int groundLevel = 922;
+    public int bigGroundLevel = 790;
     Box[] collidables = new Box[8];
     Font font;
     TrueTypeFont ttf;
@@ -44,11 +45,11 @@ public class Game extends BasicGame {
     public void init(GameContainer gc) throws SlickException { //Implicity called at the start.
         song.loop(1, 0.3f);
         box1 = new Box("resources/images/blocks/brickBlock1.png", 500, 952);
-        box2 = new Box("resources/images/blocks/brickBlock1.png", 700, 700);
-        box3 = new Box("resources/images/blocks/brickBlock1.png", 800, 700);
-        qBox1= new QuestionBox(900, 700, "mushroom");
-        box4 = new Box("resources/images/blocks/brickBlock1.png", 1000, 700);
-        box5 = new Box("resources/images/blocks/brickBlock1.png", 1100, 700);
+        box2 = new Box("resources/images/blocks/brickBlock1.png", 700, 500);
+        box3 = new Box("resources/images/blocks/brickBlock1.png", 800, 500);
+        qBox1= new QuestionBox(900, 500, "mushroom");
+        box4 = new Box("resources/images/blocks/brickBlock1.png", 1000, 500);
+        box5 = new Box("resources/images/blocks/brickBlock1.png", 1100, 500);
         pipe1 = new Pipe(1400, 796);
         box6 = new Box("resources/images/blocks/brickBlock1.png", 1800, 500);
         bg = new Image("resources/images/background1Clean.png");
@@ -59,6 +60,8 @@ public class Game extends BasicGame {
 
     @Override
     public void update(GameContainer gc, int i) throws SlickException {
+        mario.drawLines();
+
         collidables[0] = box1;
         collidables[1] = qBox1;
         collidables[2] = box2;
@@ -81,7 +84,10 @@ public class Game extends BasicGame {
                 }
 
                 if(mario.marioFeetCollison((org.newdawn.slick.geom.Shape)collidables[x].lines.get(j))&& collidables[x].lines.get(j) == collidables[x].topRectangle){
-                    mario.setMarioY(collidables[x].getY()-130);
+                    if(!mario.isBig)
+                        mario.setMarioY(collidables[x].getY()-130);
+                    else
+                        mario.setMarioY(collidables[x].getY()-260);
                     mario.feetCollision = true;
                 }
                 if(mario.marioHeadCollision((org.newdawn.slick.geom.Shape)collidables[x].lines.get(j)) && collidables[x].lines.get(j) == collidables[x].bottomRectangle && (jumpStage < 60)){
@@ -141,7 +147,8 @@ public class Game extends BasicGame {
                 if(items.get(i) instanceof Mushroom) {
                     m = null;
                     mario.getBig();
-                    groundLevel = 794;
+                    mario.setMarioY(mario.getMarioY()- 128);
+                    mario.setMarioY(bigGroundLevel);
                 }
                 //else if(items.get(i) instanceof Flower)
                 //else if(items.get(i) instance of Star)
@@ -150,15 +157,24 @@ public class Game extends BasicGame {
             }
         }
 
+        if(mario.marioFeetCollison(ground)){
+            if(mario.isBig){
+                mario.setMarioY(bigGroundLevel);
+            }
+            else
+                mario.setMarioY(groundLevel);
+            mario.feetCollision = true;
+        }
+
         if (mario.getMarioY() < groundLevel && jumpStage == 0){ //gravity
-            System.out.println(mario.feetCollision);
             mario.setMarioY(mario.getMarioY() + 4);
-            if(mario.marioState.equals("jump"))
-                mario.marioState="jump";
         }
 
         if(mario.getMarioY() > groundLevel){ //Reverse gravity.
-            mario.setMarioY(groundLevel);
+            if(mario.isBig)
+                mario.setMarioY(bigGroundLevel);
+            else
+                mario.setMarioY(groundLevel);
         }
 
         Input input = gc.getInput();
@@ -192,7 +208,7 @@ public class Game extends BasicGame {
             mario.marioRightStage = 0;
         }
 
-        if (input.isKeyPressed(Input.KEY_UP) && (mario.getMarioY() == 922 || mario.feetCollision)){
+        if (input.isKeyPressed(Input.KEY_UP) && mario.feetCollision){
             jumpStage = 0;
             jumpStage++;
             jumpSound.play();
@@ -284,6 +300,7 @@ public class Game extends BasicGame {
         //draws the ground
         g.setColor(new Color(0, 150,0));
         g.fillRect(0, 1050, 10000, 30);
+        ground = new Rectangle(0, 1050, 100000, 30);
 
 
         if(m != null) {
