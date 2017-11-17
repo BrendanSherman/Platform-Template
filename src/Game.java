@@ -45,11 +45,11 @@ public class Game extends BasicGame {
     public void init(GameContainer gc) throws SlickException { //Implicity called at the start.
         song.loop(1, 0.3f);
         box1 = new Box("resources/images/blocks/brickBlock1.png", 500, 952);
-        box2 = new Box("resources/images/blocks/brickBlock1.png", 700, 500);
-        box3 = new Box("resources/images/blocks/brickBlock1.png", 800, 500);
-        qBox1= new QuestionBox(900, 500, "mushroom");
-        box4 = new Box("resources/images/blocks/brickBlock1.png", 1000, 500);
-        box5 = new Box("resources/images/blocks/brickBlock1.png", 1100, 500);
+        box2 = new Box("resources/images/blocks/brickBlock1.png", 700, 600);
+        box3 = new Box("resources/images/blocks/brickBlock1.png", 800, 600);
+        qBox1= new QuestionBox(900, 600, "mushroom");
+        box4 = new Box("resources/images/blocks/brickBlock1.png", 1000, 600);
+        box5 = new Box("resources/images/blocks/brickBlock1.png", 1100, 600);
         pipe1 = new Pipe(1400, 796);
         box6 = new Box("resources/images/blocks/brickBlock1.png", 1800, 500);
         bg = new Image("resources/images/background1Clean.png");
@@ -147,8 +147,6 @@ public class Game extends BasicGame {
                 if(items.get(i) instanceof Mushroom) {
                     m = null;
                     mario.getBig();
-                    mario.setMarioY(mario.getMarioY()- 128);
-                    mario.setMarioY(bigGroundLevel);
                 }
                 //else if(items.get(i) instanceof Flower)
                 //else if(items.get(i) instance of Star)
