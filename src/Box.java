@@ -12,6 +12,7 @@ public class Box {
     boolean used;
     String type = "";
     String url = "";
+    Image boxImage;
     protected int x;
     protected int y;
     int moveStage = 0;
@@ -30,6 +31,7 @@ public class Box {
        this.y = y;
        this.draw();
        this.drawLines();
+       boxImage = new Image(url);
     }
 
     public Box(int x, int y) throws SlickException{
@@ -38,9 +40,17 @@ public class Box {
         this.drawLines();
     }
 
+    public void smash() throws SlickException{
+        this.boxImage = null;
+        for(int i = 0; i < lines.size(); i++){
+            lines.remove(i);
+        }
+    }
+
     public void draw() throws SlickException{ //creates new image class with url, and draws it at x and y
-        Image boxImage = new Image(url);
-        boxImage.draw(x, y);
+        if(boxImage != null) {
+            boxImage.draw(x, y);
+        }
     }
 
     public void Animate() throws SlickException{ //Box animation

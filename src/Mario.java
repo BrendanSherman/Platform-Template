@@ -4,7 +4,6 @@ import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Shape;
 
 public class Mario {
-    public int dY = 0;
     private int marioX; //mario coordinates
     private int marioY;
     private myRectangle marioFeetRectangle;  //mario hitboxes

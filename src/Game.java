@@ -28,6 +28,7 @@ public class Game extends BasicGame {
     private Sound bumpSound = new Sound("resources/sounds/smb_bump.wav");
     private Sound itemSpawn = new Sound("resources/sounds/smb_powerup_appears.wav");
     private Sound powerUp = new Sound("resources/sounds/smb_powerup.wav");
+    private Sound smash = new Sound("resources/sounds/smb_breakblock.wav");
     int jumpStage = 0;
     private Camera cam = new Camera();
     public int groundLevel = 922;
@@ -50,8 +51,8 @@ public class Game extends BasicGame {
         qBox1= new QuestionBox(900, 600, "mushroom");
         box4 = new Box("resources/images/blocks/brickBlock1.png", 1000, 600);
         box5 = new Box("resources/images/blocks/brickBlock1.png", 1100, 600);
-        pipe1 = new Pipe(1400, 796);
-        box6 = new Box("resources/images/blocks/brickBlock1.png", 1800, 500);
+        pipe1 = new Pipe(1500, 796);
+        box6 = new Box("resources/images/blocks/brickBlock1.png", 1900, 500);
         bg = new Image("resources/images/background1Clean.png");
         mario = new Mario(80, groundLevel);
         font = new Font("Apple Chancery", Font.BOLD, 32);
@@ -93,12 +94,16 @@ public class Game extends BasicGame {
                 if(mario.marioHeadCollision((org.newdawn.slick.geom.Shape)collidables[x].lines.get(j)) && collidables[x].lines.get(j) == collidables[x].bottomRectangle && (jumpStage < 60)){
                     jumpStage = 0;
                     mario.headCollision = true;
-                    if( collidables[x].used == false && animationEligible && mario.getMarioX() < collidables[x].x + 70 && !mario.isBig){ //checks for "bump" eligibility
+                    if( collidables[x].used == false && animationEligible){ //checks for "bump" eligibility
                         bumpSound.play();
-                        collidables[x].moveStage += 1;
+                        if(mario.isBig){
+                            collidables[x].smash();
+                            smash.play();
+                        }
+                        else
+                            collidables[x].moveStage += 1;
                         animationEligible = false;
                     }
-
 
                     if(collidables[x] instanceof QuestionBox && !(collidables[x].used)){ //If mario hits an open qbox
                         if(collidables[x].type.equals("mushroom")) { //sets up a mushroom
