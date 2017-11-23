@@ -9,4 +9,7 @@ add a VM parameter for the dll files as follows:
 ## PLAYABLE FILE:   
 A compressed file containing an executable file can be found at    
 http://www.filehosting.org/file/details/709582/Mario.zip
+To run the exe, the JRE is required
+
+
 
