@@ -12,11 +12,11 @@ http://www.filehosting.org/file/details/709582/Mario.zip
 To run the exe, the JRE is required
 
 ## CONTROLS:  
-Left Arrow: Walk left  
-Right Arrow: Walk Right  
-Up Arrow: Jump  
-1: Switch to Mario  
-2: Switch to Luigi  
+**Left Arrow:** Walk left  
+**Right Arrow:** Walk Right  
+**Up Arrow:** Jump  
+**1:** Switch to Mario  
+**2:** Switch to Luigi  
 
 
 
